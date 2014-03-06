@@ -1,4 +1,23 @@
-<?php session_start();?>
+<?php session_start();
+require "helpers/sanitize.php";
+	//basically your login controller
+	//check if already logged in
+	if($_SESSION['logged_in'] == true){
+		header("Location: /welcome/");
+	}else{
+		//check if form is posting back
+		if($_POST){
+			$username = sanitize($_POST["username"]);
+			$password = sanitize($_POST["password"]);
+
+			if($username == 'admin' && $password == 'password'){
+				$_SESSION['logged_in'] = true;
+				header("Location: /welcome/");
+			}else{
+				$error = "Invalid Login";
+			}
+		}
+	}?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -37,29 +56,6 @@
 
 </head>
 <body>
-	<?php
-	//this is the input cleaner
-	require "helpers/sanitize.php";
-	//basically your login controller
-	//check if already logged in
-	if($_SESSION['logged_in'] == true){
-		header("Location: /welcome/");
-	}else{
-		//check if form is posting back
-		if($_POST){
-			$username = sanitize($_POST["username"]);
-			$password = sanitize($_POST["password"]);
-
-			if($username == 'admin' && $password == 'password'){
-				$_SESSION['logged_in'] = true;
-				header("Location: /welcome/");
-			}else{
-				$error = "Invalid Login";
-			}
-		}
-	}
-
-	?>
 	<!-- This is the view -->
 	<div id="login-wrapper">
 		<h4>Login</h4>
