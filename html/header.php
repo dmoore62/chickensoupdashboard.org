@@ -1,7 +1,3 @@
-<?php session_start();
-if($_SESSION["logged_in"] != true){
-    header("Location: http://".$_SERVER["HTTP_HOST"]);
-}?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -30,13 +26,15 @@ if($_SESSION["logged_in"] != true){
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/global.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $stylesheet;?>">
 
     <!-- The Scripts-->
     <script type="text/javascript" src="/js/jQuery.1.11.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="/js/login.js"></script>
+    <script type="text/javascript" src="/js/global.js"></script>
+    <script type="text/javascript" src="<?php echo $script;?>"></script>
 
 </head>
 <body>
