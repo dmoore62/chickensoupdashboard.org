@@ -53,6 +53,17 @@ $script = '/js/welcome.js'
 		</div>
 	</div>
 </div>
-<div id="page-content"></div>
+<div id="page-content">
+	<div id="nav-wrapper">
+		<div id="title"><h3>Dashboard</h3></div>
+		<ul class="nav nav-tabs">
+		  <li class="active"><a href="#">This Week</a></li>
+		  <li><a href="#">Next Week</a></li>
+		</ul>
+	</div>
+	<div id="content-wrapper">
+		
+	</div>
+</div>
 
 <?php require "../footer.php";?>

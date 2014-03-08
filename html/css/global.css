@@ -70,3 +70,31 @@ footer{
 	height: 30px;
 	background-color: #FFF;
 }
+
+div#page-content div#content-wrapper{
+	min-height: 465px;
+	width: 930px;
+	margin: auto;
+	margin-top: 8px;
+	background-color: #FFF;
+}
+
+div#page-content div#nav-wrapper{
+	width: 100%;
+	height: 40px;
+	padding-top: 20px;
+}
+
+div#nav-wrapper div#title{
+	float: left;
+}
+
+div#page-content div#nav-wrapper ul.nav{
+	float: right;
+	margin-top: 10px;
+	margin-right: 15px;
+}
+
+div#title h3{
+	padding-left: 15px;
+}
