@@ -1,0 +1,54 @@
+div#next-week{
+	display: none;
+}
+
+div.table-wrapper{
+	padding: 10px;
+}
+
+table thead tr{
+	text-align: left;
+}
+
+#page-content{
+	padding-bottom: 30px;
+}
+
+#content-wrapper{
+	padding-bottom: 50px;
+}
+
+.week-view .table-wrapper:not(:first-child){
+	padding-top: 30px;
+}
+
+.table-wrapper h4{
+	text-decoration: underline;
+}
+
+td a{
+	padding: 3px;
+	width: 90%;
+	text-align: center;
+	color: #FFF;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+td a.new{
+	background-color: #8b0000;
+}
+
+td a.new:hover{
+	color: #fff;
+}
+
+td a.pending{
+	background-color: #ffff00;
+	color: #000;
+}
+
+td a.filled{
+	background-color: #9ACD32;
+	color: #000;
+}

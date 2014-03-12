@@ -62,7 +62,78 @@ $script = '/js/welcome.js'
 		</ul>
 	</div>
 	<div id="content-wrapper">
-		
+		<div class="week-view" id="this-week">
+		<?php for ($i=0; $i < 7; $i++) :?>
+			<div class="table-wrapper">
+				<h4><?php echo ($i == 0) ? "Today" : "12/".(2+$i)."/2014";?></h4>
+				<table class="dynamic-table">
+					<thead>
+						<tr>
+							<th>Recipient</th>
+							<th>Event</th>
+							<th>Date/Time</th>
+							<th>Volunteer</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Joe Smith</td>
+							<td>Ride</td>
+							<td>12/25/2014 12:00 PM</td>
+							<td><a href="#" class="new">Find Volunteer</a></td>
+						</tr>
+						<tr>
+							<td>Jane Williams</td>
+							<td>Visit</td>
+							<td>12/25/2014 12:00 PM</td>
+							<td><a href="#" class="pending">Awaiting Response</a></td>
+						</tr>
+						<tr>
+							<td>Mary Jones</td>
+							<td>Food</td>
+							<td>12/25/2014 12:00 PM</td>
+							<td><a href="#" class="filled">Jerry Ross</a></td>
+						</tr>
+				</table>
+			</div>
+		<?php endfor;?>
+		</div>
+		<div class="week-view" id="next-week">
+			<?php for ($i=0; $i < 7; $i++) :?>
+			<div class="table-wrapper">
+				<h4><?php echo "12/".(9+$i)."/2014";?></h4>
+				<table class="dynamic-table">
+					<thead>
+						<tr>
+							<th>Recipient</th>
+							<th>Event</th>
+							<th>Date/Time</th>
+							<th>Volunteer</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Joe Smith</td>
+							<td>Ride</td>
+							<td>12/25/2014 12:00 PM</td>
+							<td><a href="#" class="new">Find Volunteer</a></td>
+						</tr>
+						<tr>
+							<td>Jane Williams</td>
+							<td>Visit</td>
+							<td>12/25/2014 12:00 PM</td>
+							<td><a href="#" class="pending">Awaiting Response</a></td>
+						</tr>
+						<tr>
+							<td>Mary Jones</td>
+							<td>Food</td>
+							<td>12/25/2014 12:00 PM</td>
+							<td><a href="#" class="filled">Jerry Ross</a></td>
+						</tr>
+				</table>
+			</div>
+		<?php endfor;?>
+		</div>
 	</div>
 </div>
 
