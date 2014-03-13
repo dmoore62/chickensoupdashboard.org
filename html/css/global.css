@@ -133,4 +133,30 @@ div#overlay{
 
 div.modal{
 	z-index: 1020;
+	border-radius: 0;
 }
+
+div.modal .modal-head{
+
+}
+
+.modal-head .modal-title{
+
+}
+
+.modal-head .model-close{
+
+}
+
+.modal-close a.close{
+
+}
+
+div.modal .modal-content{
+
+}
+
+.modal-content form{
+
+}
+

@@ -27,7 +27,7 @@ function trigger_overlay(){
 			overlay.html(msg);
 			overlay.css("height", body_height+"px");
 			overlay.show();
-			$('a.close').on('click', function(){
+			$('button.close').on('click', function(){
 				overlay.hide();
 			});
 		});
