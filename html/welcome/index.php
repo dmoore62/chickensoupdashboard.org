@@ -50,6 +50,7 @@ $script = '/js/welcome.js'
 		</nav>
 		<div id="search-wrapper">
 			<input id="global-search" type="text" name="global-search" placeholder="Search" />
+			<div id="search-results"></div>
 		</div>
 	</div>
 </div>

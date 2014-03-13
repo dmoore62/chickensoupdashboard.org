@@ -98,3 +98,24 @@ div#page-content div#nav-wrapper ul.nav{
 div#title h3{
 	padding-left: 15px;
 }
+
+div#search-wrapper #global-search{
+	z-index: 1000;
+}
+
+div#search-wrapper #search-results{
+	display: none;
+	position: absolute;
+	z-index: 999;
+	height: 150px;
+	width: 223px;
+	background-color: #e4e4e4;
+	border: 2px solid #000;
+	border-radius: 3px;
+	margin-top: -7px;
+	margin-left: -4px;
+}
+
+ul#out-list{
+	padding-top: 20px;
+}
