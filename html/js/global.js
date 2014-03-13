@@ -16,8 +16,24 @@ function get_search_results(){
 	});
 }
 
+function trigger_overlay(){
+	var overlay = $('div#overlay');
+	var body_height = $(document).height() + 200;
+	$('a.pop_box').on('click', function(e){
+		e.preventDefault();
+		console.log(body_height);
+		overlay.css("height", body_height+"px");
+		overlay.show();
+		overlay.on('click', function(){
+			overlay.hide();
+		});
+	});
+}
+
 var d = $(document);
 d.ready(function(){
 	//alert('global');
 	get_search_results();
+
+	trigger_overlay();
 });
