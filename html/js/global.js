@@ -34,10 +34,16 @@ function trigger_overlay(){
 	});
 }
 
+function mask_phones(){
+	$('.phone-mask').mask("(999)999-9999");
+}
+
 var d = $(document);
 d.ready(function(){
 	//alert('global');
 	get_search_results();
 
 	trigger_overlay();
+
+	mask_phones();
 });

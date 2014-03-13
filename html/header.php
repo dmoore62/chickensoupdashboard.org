@@ -34,6 +34,7 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
     <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/js/mask.min.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="<?php echo $script;?>"></script>
 
