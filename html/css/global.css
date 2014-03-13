@@ -130,3 +130,7 @@ div#overlay{
 	z-index: 1010;
 	background: rgba(0, 0, 0, 0.5);
 }
+
+div.modal{
+	z-index: 1020;
+}

@@ -21,11 +21,15 @@ function trigger_overlay(){
 	var body_height = $(document).height() + 200;
 	$('a.pop_box').on('click', function(e){
 		e.preventDefault();
-		console.log(body_height);
-		overlay.css("height", body_height+"px");
-		overlay.show();
-		overlay.on('click', function(){
-			overlay.hide();
+		var model_form = "../" + $(this).attr('data-form') + ".php";
+		console.log(model_form);
+		$.get(model_form, function(msg){
+			overlay.html(msg);
+			overlay.css("height", body_height+"px");
+			overlay.show();
+			$('a.close').on('click', function(){
+				overlay.hide();
+			});
 		});
 	});
 }
