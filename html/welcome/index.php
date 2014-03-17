@@ -2,6 +2,8 @@
 if($_SESSION["logged_in"] != true){
     header("Location: http://".$_SERVER["HTTP_HOST"]);
 }
+
+$date = strtotime("last sunday");
 //welcome controller
 //set css and js for this page
 $stylesheet = '/css/welcome.css';
@@ -66,7 +68,7 @@ $script = '/js/welcome.js'
 		<div class="week-view" id="this-week">
 		<?php for ($i=0; $i < 7; $i++) :?>
 			<div class="table-wrapper">
-				<h4><?php echo ($i == 0) ? "Today" : "12/".(2+$i)."/2014";?></h4>
+				<h4><?php if($date==time()){ echo "Today"; }else{ echo date("m/d/Y", $date); }?></h4>
 				<table class="dynamic-table">
 					<thead>
 						<tr>
@@ -97,12 +99,14 @@ $script = '/js/welcome.js'
 						</tr>
 				</table>
 			</div>
-		<?php endfor;?>
+		<?php 
+		$date = strtotime("+1 day", $date);
+		endfor;?>
 		</div>
 		<div class="week-view" id="next-week">
 			<?php for ($i=0; $i < 7; $i++) :?>
 			<div class="table-wrapper">
-				<h4><?php echo "12/".(9+$i)."/2014";?></h4>
+				<h4><?php echo date("m/d/Y", $date);?></h4>
 				<table class="dynamic-table">
 					<thead>
 						<tr>
@@ -133,7 +137,9 @@ $script = '/js/welcome.js'
 						</tr>
 				</table>
 			</div>
-		<?php endfor;?>
+		<?php 	
+		$date = strtotime("+1 day", $date);
+		endfor;?>
 		</div>
 	</div>
 </div>
