@@ -1,7 +1,8 @@
 <?php
 $term = $_GET['term'];
 //sql to search recipients
-
+// $queryr = "SELECT * FROM Recipents WHERE Name LIKE '%$term%'";
+// $queryv = "SELECT * FROM Volunteers WHERE VName LIKE '%$term%'";
 //sql to search vols
 ?>
 <ul id="out-list">
