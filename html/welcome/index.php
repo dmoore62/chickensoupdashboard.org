@@ -24,7 +24,7 @@ $script = '/js/welcome.js'
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">Dashboard</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Volenteers <b class="caret"></b></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Volunteers <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a class="pop_box" data-form = "vol_form" href="#">Create New</a></li>
 								<li><a href="#">Search</a></li>
