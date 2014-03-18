@@ -4,6 +4,7 @@ if($_SESSION["logged_in"] != true){
 }
 
 $date = strtotime("last sunday");
+$time = strtotime(date("Y-m-d"));
 //welcome controller
 //set css and js for this page
 $stylesheet = '/css/welcome.css';
@@ -24,7 +25,7 @@ $active = 'dashboard';
 		<div class="week-view" id="this-week">
 		<?php for ($i=0; $i < 7; $i++) :?>
 			<div class="table-wrapper">
-				<h4><?php if($date==time()){ echo "Today"; }else{ echo date("m/d/Y", $date); }?></h4>
+				<h4><?php if($date==$time){ echo "Today"; }else{ echo date("m/d/Y", $date); }?></h4>
 				<table class="dynamic-table">
 					<thead>
 						<tr>
