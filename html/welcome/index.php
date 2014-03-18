@@ -7,55 +7,11 @@ $date = strtotime("last sunday");
 //welcome controller
 //set css and js for this page
 $stylesheet = '/css/welcome.css';
-$script = '/js/welcome.js'
+$script = '/js/welcome.js';
+$active = 'dashboard';
 ?>
 <?php require "../header.php";?>
-<div id="title-header">
-	<div id="title-content">
-		<div id="title">
-			<h2>Chicken Soup</h2>
-		</div>
-		<a href="http://<?php echo $_SERVER["HTTP_HOST"];?>/logout.php">Logout</a>
-	</div>
-</div>
-<div id="nav-bar">
-	<div id="nav-wrapper">
-		<nav class="navbar navbar-inverse" role="navigation">
-			<div class="container">
-				<div class="navbar-collapse" id="main-nav">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Dashboard</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Volunteers <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a class="pop_box" data-form = "vol_form" href="#">Create New</a></li>
-								<li><a href="#">Search</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Recipients <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a class="pop_box" data-form="rep_form" href="#">Create New</a></li>
-								<li><a href="#">Search</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Report 1</a></li>
-								<li><a href="#">Report 2</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<div id="search-wrapper">
-			<input id="global-search" type="text" name="global-search" placeholder="Search" />
-			<div id="search-results"></div>
-		</div>
-	</div>
-</div>
+<?php require "../nav.php";?>
 <div id="page-content">
 	<div id="nav-wrapper">
 		<div id="title"><h3>Dashboard</h3></div>

@@ -1,0 +1,13 @@
+div.search-view#search,
+div#vol-search-results
+{
+	display: none;
+}
+
+input#vol-search{
+	height: 35px;
+	width: 90%;
+	font-size: 21px;
+	margin: 0 34px;
+	margin-bottom: -20px;
+}

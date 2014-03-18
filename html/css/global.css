@@ -134,6 +134,7 @@ div#overlay{
 div.modal{
 	z-index: 1020;
 	border-radius: 0;
+	
 }
 
 div.modal .modal-head{
@@ -160,3 +161,28 @@ div.modal .modal-content{
 
 }
 
+div.table-wrapper,
+div.tab-content-wrapper{
+	padding: 10px;
+}
+
+table thead tr{
+	text-align: left;
+}
+
+#page-content{
+	padding-bottom: 30px;
+}
+
+#content-wrapper{
+	padding-bottom: 50px;
+}
+
+.week-view .table-wrapper:not(:first-child),
+.search-view .table-wrapper:not(:first-child){
+	padding-top: 30px;
+}
+
+.table-wrapper h4{
+	text-decoration: underline;
+}
