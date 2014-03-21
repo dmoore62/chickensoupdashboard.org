@@ -2,33 +2,10 @@ div#next-week{
 	display: none;
 }
 
-div.table-wrapper{
-	padding: 10px;
-}
-
-table thead tr{
-	text-align: left;
-}
-
-#page-content{
-	padding-bottom: 30px;
-}
-
-#content-wrapper{
-	padding-bottom: 50px;
-}
-
-.week-view .table-wrapper:not(:first-child){
-	padding-top: 30px;
-}
-
-.table-wrapper h4{
-	text-decoration: underline;
-}
-
 td a{
+	display: block;
 	padding: 3px;
-	width: 90%;
+	width: 100%;
 	text-align: center;
 	color: #FFF;
 	font-size: 14px;

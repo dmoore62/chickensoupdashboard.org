@@ -2,3 +2,9 @@ div#events,
 div#history{
 	display: none;
 }
+
+h4 a.btn-success{
+	float: right;
+	margin-top: -8px;
+	width: 183px;
+}
