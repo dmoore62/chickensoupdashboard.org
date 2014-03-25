@@ -3,6 +3,8 @@ if($_SESSION["logged_in"] != true){
     header("Location: http://".$_SERVER["HTTP_HOST"]);
 }
 
+require "../../config/mysql_header.php";
+
 $date = strtotime("last sunday");
 $time = strtotime(date("Y-m-d"));
 //welcome controller
