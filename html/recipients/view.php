@@ -7,25 +7,57 @@ require "../helpers/sanitize.php";
 
 $rid = $_GET['rid'];
 if(!$rid){
-	//new recip insert and return id
-	$insert_data = array(
-		'first_name' => sanitize($_POST['fname']),
-		'last_name' => sanitize($_POST['lname']),
-		'email' => sanitize($_POST['email']),
-		'address' => sanitize($_POST['address']),
-		'city' => sanitize($_POST['city']),
-		'ZIP' => sanitize($_POST['postal']),
-		'home_phone' => format_phone(sanitize($_POST['hphone']))
-		);
-	$columns = implode(", ", array_keys($insert_data));
-	$values = "'".implode("', '", $insert_data)."'";
-	$insert_sql = "INSERT into Recipients ($columns) VALUES ($values);";
-	//die($insert_sql);
-	mysql_query($insert_sql) or die(mysql_error());
-	//die(mysql_insert_id());
-	$rid = mysql_insert_id() or die('here');
-	// echo "<pre>";
-	// echo $rid;
+	if($_POST['save'] == 'SAVE'){
+		//new recip insert and return id
+		$insert_data = array(
+			'first_name' => sanitize($_POST['fname']),
+			'last_name' => sanitize($_POST['lname']),
+			'email' => sanitize($_POST['email']),
+			'address' => sanitize($_POST['address']),
+			'city' => sanitize($_POST['city']),
+			'ZIP' => sanitize($_POST['postal']),
+			'home_phone' => format_phone(sanitize($_POST['hphone']))
+			);
+		$columns = implode(", ", array_keys($insert_data));
+		$values = "'".implode("', '", $insert_data)."'";
+		$insert_sql = "INSERT into Recipients ($columns) VALUES ($values);";
+		//die($insert_sql);
+		mysql_query($insert_sql) or die(mysql_error());
+		//die(mysql_insert_id());
+		$rid = mysql_insert_id() or die('here');
+		// echo "<pre>";
+		// echo $rid;
+	}else if($_POST['save'] == 'UPDATE'){
+		//update info
+		$rid = $_POST['rid'];
+		$update_data = array(
+			'first_name' => sanitize($_POST['fname']),
+			'last_name' => sanitize($_POST['lname']),
+			'email' => sanitize($_POST['email']),
+			'address' => sanitize($_POST['address']),
+			'city' => sanitize($_POST['city']),
+			'ZIP' => sanitize($_POST['postal']),
+			'home_phone' => format_phone(sanitize($_POST['hphone'])),
+			'cell_phone' => format_phone(sanitize($_POST['cphone'])),
+			'directions' => sanitize($_POST['directions']),
+			'contact' => sanitize($_POST['contact']),
+			'limitations' => sanitize($_POST['limitations']),
+			'child' => $_POST['child'],
+			'SUV' => $_POST['suv'],
+			'contact_relationship' => format_phone(sanitize($_POST['contact_phone']))
+			);
+
+		//this is cryptic and shity, but it creates the correct update string
+		foreach ($update_data as $key => $value) {
+			$update_ary[] = "$key = '$value'";
+		}
+
+		$update_str = implode(", ",	$update_ary);
+
+		$update_sql = "UPDATE Recipients SET $update_str WHERE RID = '$rid';";
+		
+		mysql_query($update_sql) or die(mysql_error());
+	}
 }
 
 //either way, get all recip info
@@ -108,12 +140,6 @@ $active = 'recip'
 					              <input type="text" class="input-large phone-mask" name="cphone" id="cphone" value=<?= $r['cell_phone'];?>>  
 					            </div>  
 					        </div>
-					        <div class="control-group">  
-					            <label class="control-label" for="wphone">Work Phone</label>  
-					            <div class="controls">  
-					              <input type="text" class="input-large phone-mask" name="wphone" id="wphone" value=<?= $r['work_phone'];?>>  
-					            </div>  
-					        </div>
 				        </div>
 				        <!-- <div class="span1"></div> -->
 				        <div class="span5">
@@ -121,15 +147,15 @@ $active = 'recip'
 					            <label class="control-label" for="suv">Use SUV?</label>  
 					            <div class="controls">  
 					              <select name="suv" id="suv" class="form-control">
-					              	<option <?php echo ($r['suv'] == 1) ? "selected" : "";?> value="1">Yes</option>
-					              	<option <?php echo ($r['suv'] == 0) ? "selected" : "";?> value="0">No</option>
+					              	<option <?php echo ($r['SUV'] == 1) ? "selected" : "";?> value="1">Yes</option>
+					              	<option <?php echo ($r['SUV'] == 0) ? "selected" : "";?> value="0">No</option>
 					              </select>  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
-					            <label class="control-label" for="meals">Kids?</label>  
+					            <label class="control-label" for="child">Kids?</label>  
 					            <div class="controls">  
-					              <select name="meals" id="meals" class="form-control">
+					              <select name="child" id="child" class="form-control">
 					              	<option <?php echo ($r['child'] == 1) ? "selected" : "";?> value="1">Yes</option>
 					              	<option <?php echo ($r['child'] == 0) ? "selected" : "";?> value="0">No</option>
 					              </select>  
@@ -138,13 +164,13 @@ $active = 'recip'
 					        <div class="control-group">  
 					            <label class="control-label" for="activities">Contact</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="contact" id="contact">  
+					              <input type="text" class="input-large" name="contact" id="contact" value="<?= $r['contact'];?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="secLang">Contact Phone</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large phone-mask" name="contact_phone" id="contact_phone">  
+					              <input type="text" class="input-large phone-mask" name="contact_phone" id="contact_phone" value="<?= $r['contact_relationship']?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  

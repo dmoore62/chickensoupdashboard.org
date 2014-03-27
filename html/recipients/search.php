@@ -3,6 +3,14 @@ if($_SESSION["logged_in"] != true){
     header("Location: http://".$_SERVER["HTTP_HOST"]);
 }
 
+require "../../config/mysql_header.php";
+require "../helpers/sanitize.php";
+
+//pull last ten recipients added
+$recent_sql = "SELECT * FROM Recipients ORDER BY RID DESC LIMIT 10;";
+
+$recent_results = mysql_query($recent_sql);
+
 //volunteer/search controller
 //set css and js for this page
 $stylesheet = '/css/recip_search.css';
@@ -32,24 +40,14 @@ $active = 'recip'
 							<th>Last Event</th>
 						</tr>
 						<tbody>
-							<tr>
-								<td><a href="/recipients/view.php?vid=1">Joe Frank</a></td>
-								<td>(407) 666-5555</td>
-								<td>345 Main Street Orlando, FL</td>
-								<td>2/14/2014</td>
-							</tr>
-							<tr>
-								<td>Joe Frank</td>
-								<td>(407) 666-5555</td>
-								<td>345 Main Street Orlando, FL</td>
-								<td>2/14/2014</td>
-							</tr>
-							<tr>
-								<td>Joe Frank</td>
-								<td>(407) 666-5555</td>
-								<td>345 Main Street Orlando, FL</td>
-								<td>2/14/2014</td>
-							</tr>
+							<?php while($r = mysql_fetch_assoc($recent_results)):?>
+								<tr>
+									<td><a href="/recipients/view.php?rid=<?= $r['RID'];?>"><?= $r['first_name']." ".$r['last_name'];?></a></td>
+									<td><?= build_phone($r['home_phone']);?></td>
+									<td><?= $r['address']." ".$r['city']." ".$r['ZIP'];?></td>
+									<td>2/14/2014</td>
+								</tr>
+							<?php endwhile;?>
 						</tbody>
 					</thead>
 				</table>
@@ -67,7 +65,7 @@ $active = 'recip'
 						<th>Address</th>
 						<th>Last Event</th>
 					</tr>
-					<tbody>
+					<tbody id="search-results">
 						<tr>
 							<td>Joe Frank</td>
 							<td>(407) 666-5555</td>
