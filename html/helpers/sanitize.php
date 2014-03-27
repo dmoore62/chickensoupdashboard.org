@@ -1,7 +1,9 @@
-<?
+<?php
+
+//require_once "../../config/mysql_header.php"; //The MYSQL Connection
+
 function sanitize($in){
-	require "../../config/mysql_header.php"; //The MYSQL Connection
-	$out = mysql_real_escape_string($in); //Needs MYSQL Connection
+	//$out = mysql_real_escape_string($in) or die('here'); //Needs MYSQL Connection
 	$out = $in;
 	return $out;
 }

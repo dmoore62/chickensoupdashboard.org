@@ -95,49 +95,49 @@ $active = 'recip'
 							<div class="control-group">  
 					            <label class="control-label" for="fname">First Name</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="fname" id="fname" value=<?= $r['first_name'];?>>  
+					              <input type="text" class="input-large" name="fname" id="fname" value="<?= $r['first_name'];?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="lname">Last Name</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="lname" id="lname" value=<?= $r['last_name'];?>>  
+					              <input type="text" class="input-large" name="lname" id="lname" value="<?= $r['last_name'];?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="email">E-Mail</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="email" id="email" value=<?= $r['email'];?>>  
+					              <input type="text" class="input-large" name="email" id="email" value="<?= $r['email'];?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="address">Address</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="address" id="address" value=<?= $r['address'];?>>  
+					              <input type="text" class="input-large" name="address" id="address" value="<?= $r['address'];?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="city">City</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="city" id="city" value=<?= $r['city'];?>>  
+					              <input type="text" class="input-large" name="city" id="city" value="<?= $r['city'];?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="postal">Zip</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="postal" id="postal" value=<?= $r['ZIP'];?>>  
+					              <input type="text" class="input-large" name="postal" id="postal" value="<?= $r['ZIP'];?>">  
 					            </div>  
 					        </div> 
 							<div class="control-group">  
 					            <label class="control-label" for="hphone">Home Phone</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large phone-mask" name="hphone" id="hphone" value=<?= $r['home_phone'];?>>  
+					              <input type="text" class="input-large phone-mask" name="hphone" id="hphone" value="<?= $r['home_phone'];?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="cphone">Cell Phone</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large phone-mask" name="cphone" id="cphone" value=<?= $r['cell_phone'];?>>  
+					              <input type="text" class="input-large phone-mask" name="cphone" id="cphone" value="<?= $r['cell_phone'];?>">  
 					            </div>  
 					        </div>
 				        </div>
