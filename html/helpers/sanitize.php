@@ -1,6 +1,7 @@
 <?
 function sanitize($in){
-	$out = mysql_real_escape_string($in);
+	require "../../config/mysql_header.php"; //The MYSQL Connection
+	$out = mysql_real_escape_string($in); //Needs MYSQL Connection
 	$out = $in;
 	return $out;
 }
