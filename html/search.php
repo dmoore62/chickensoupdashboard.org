@@ -21,7 +21,7 @@ $vol_results = mysql_query($queryv);
 				<?php endwhile;?>
 			<?php else:?>
 				<li>No Recipients Found</li>
-				<li><?= $queryr;?></li>
+				<li><?= $queryr;?></li> <!-- Should this be here? -->
 			<?php endif;?>
 		</ul>
 	</li>
