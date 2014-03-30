@@ -29,11 +29,16 @@
     <link rel="stylesheet" type="text/css" href="/css/global.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $stylesheet;?>">
     <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="/css/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-timepicker.min.css">
+
     <!-- The Scripts-->
     <script type="text/javascript" src="/js/jQuery.1.11.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
     <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-timepicker.min.js"></script>
     <script type="text/javascript" src="/js/mask.min.js"></script>
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="<?php echo $script;?>"></script>

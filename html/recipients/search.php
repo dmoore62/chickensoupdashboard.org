@@ -42,7 +42,7 @@ $active = 'recip'
 						<tbody>
 							<?php while($r = mysql_fetch_assoc($recent_results)):?>
 								<tr>
-									<td><a class="btn btn-primary btn-xs" href="/recipients/view.php?rid=<?= $r['RID'];?>"><?= $r['first_name']." ".$r['last_name'];?></a></td>
+									<td><a class="" href="/recipients/view.php?rid=<?= $r['RID'];?>"><?= $r['first_name']." ".$r['last_name'];?></a></td>
 									<td><?= build_phone($r['home_phone']);?></td>
 									<td><?= $r['address']." ".$r['city']." ".$r['ZIP'];?></td>
 									<td>2/14/2014</td>
