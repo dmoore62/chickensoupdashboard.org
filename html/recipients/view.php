@@ -86,7 +86,7 @@ $active = 'recip'
 	<div id="content-wrapper">
 		<div class="recip-view" id="general">
 			<div class="tab-content-wrapper">
-				<h4>General Info<a href="#" data-form="event_form" class="pop_box btn btn-success">Create Event</a></h4>
+				<h4>General Info<a href="#" data-form="event_form"  data-for="rid" data-for-id="<?= $rid?>" class="pop_box btn btn-success">Create Event</a></h4>
 				<form id="new-recip" action="../recipients/view.php" method="POST" class="form-horizontal">
 			      <legend></legend>
 			      <div class="row-fluid">

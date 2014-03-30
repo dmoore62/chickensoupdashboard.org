@@ -1,14 +1,24 @@
 <?php 
 
+require "../config/mysql_header.php";
+$rid = $_GET['rid'];
+if($rid){
+	$recip_sql = "SELECT * FROM Recipients WHERE RID = '$rid';";
+	$result = mysql_query($recip_sql);
+	$row = mysql_fetch_assoc($result);
+	$name = ucwords($row['first_name']." ".$row['last_name']);
+}
+
 ?>
 <div class="modal">
 	<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Create New Event</h4>
+        <h4 class="modal-title">Create New Event for <?php echo $name;?></h4>
       </div>
       <form id="new-event" action="../recipients/view.php" method="POST" class="form-horizontal">
       <legend></legend>
 		<fieldset>
+			<input id="recip-id" type="hidden" name="recip-id" value="<?php echo $rid;?>"/>
 			<input id="event-type-input" type="hidden" name="event-type" value=""/>
 			<div class="control-group">  
 	            <label class="control-label" for="event-type">Event Type</label>  
@@ -256,7 +266,7 @@
 	    </div>	        
 		</fieldset>
 		<div class="modal-footer">
-			<input type="submit" name="save" class="btn btn-primary" value="SAVE" /><br/>
+			<input type="submit" name="save" class="btn btn-primary" value="CREATE EVENT" /><br/>
 		</div>
 		</form>
 		<script type="text/javascript">
