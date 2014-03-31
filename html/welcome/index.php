@@ -25,7 +25,11 @@ $active = 'dashboard';
 	</div>
 	<div id="content-wrapper">
 		<div class="week-view" id="this-week">
-		<?php for ($i=0; $i < 7; $i++) :?>
+		<?php for ($i=0; $i < 7; $i++) :
+			$datef = date("Y-m-d", $date);
+			$select_sql = "SELECT * FROM Events E, Recipients R WHERE E.start_date = '$datef' AND E.RID = R.RID ORDER BY EID ASC;";
+			$result = mysql_query($select_sql);
+			$e = mysql_fetch_assoc($result);?>
 			<div class="table-wrapper">
 				<h4><?php if($date==$time){ echo "Today"; }else{ echo date("m/d/Y", $date); }?></h4>
 				<table class="dynamic-table">
@@ -38,24 +42,31 @@ $active = 'dashboard';
 						</tr>
 					</thead>
 					<tbody>
+					<?php if(mysql_num_rows($result)>0){
+						do{
+							if(isset($e['VID'])){ 
+								$event=$e['VID'];
+								$select_sql = "SELECT * FROM Volunteers WHERE VID=$event;";
+								$result2 = mysql_query($select_sql);
+								$v = mysql_fetch_assoc($result2);
+								$class="filled"; $cmsg = $v['first_name']." ".$v['last_name'];
+							}else{
+								$event=$e['EID'];
+								$select_sql = "SELECT * FROM CallLog WHERE EID=$event;";
+								$result2 = mysql_query($select_sql);
+								$cl = mysql_num_rows($result2);
+								if($cl){ $class="pending"; $cmsg = "Awaiting Response";
+								}else{ $class="new"; $cmsg = "Find Volunteer";}
+							}
+						?>
 						<tr>
-							<td>Joe Smith</td>
-							<td>Ride</td>
-							<td>12/25/2014 12:00 PM</td>
-							<td><a href="#" class="new">Find Volunteer</a></td>
+							<td><?php echo $e['first_name']." ".$e['last_name']; ?></td>
+							<td><?php switch($e['event_type']){ case 0: echo "Transportation"; break; case 1: echo "Meals"; break; case 2: echo "Appointment"; break; }?></td>
+							<td><?php echo date("m/d/Y H:i:s A", strtotime($e['start_date']." ".$e['arrive_time'])); ?></td>
+							<td><a href="#" class="<?php echo $class;?>"><?php echo $cmsg; ?></a></td>
 						</tr>
-						<tr>
-							<td>Jane Williams</td>
-							<td>Visit</td>
-							<td>12/25/2014 12:00 PM</td>
-							<td><a href="#" class="pending">Awaiting Response</a></td>
-						</tr>
-						<tr>
-							<td>Mary Jones</td>
-							<td>Food</td>
-							<td>12/25/2014 12:00 PM</td>
-							<td><a href="#" class="filled">Jerry Ross</a></td>
-						</tr>
+						<?php }while($e = mysql_fetch_assoc($result));
+					}?>						
 				</table>
 			</div>
 		<?php 
@@ -63,7 +74,11 @@ $active = 'dashboard';
 		endfor;?>
 		</div>
 		<div class="week-view" id="next-week">
-			<?php for ($i=0; $i < 7; $i++) :?>
+		<?php for ($i=0; $i < 7; $i++) :
+			$datef = date("Y-m-d", $date);
+			$select_sql = "SELECT * FROM Events E, Recipients R WHERE E.start_date = '$datef' AND E.RID = R.RID ORDER BY EID ASC;";
+			$result = mysql_query($select_sql);
+			$e = mysql_fetch_assoc($result);?>
 			<div class="table-wrapper">
 				<h4><?php echo date("m/d/Y", $date);?></h4>
 				<table class="dynamic-table">
@@ -76,30 +91,36 @@ $active = 'dashboard';
 						</tr>
 					</thead>
 					<tbody>
+					<?php if(mysql_num_rows($result)>0){
+						do{
+							if(isset($e['VID'])){ 
+								$event=$e['VID'];
+								$select_sql = "SELECT * FROM Volunteers WHERE VID=$event;";
+								$result2 = mysql_query($select_sql);
+								$v = mysql_fetch_assoc($result2);
+								$class="filled"; $cmsg = $v['first_name']." ".$v['last_name'];
+							}else{
+								$event=$e['EID'];
+								$select_sql = "SELECT * FROM CallLog WHERE EID=$event;";
+								$result2 = mysql_query($select_sql);
+								$cl = mysql_num_rows($result2);
+								if($cl){ $class="pending"; $cmsg = "Awaiting Response";
+								}else{ $class="new"; $cmsg = "Find Volunteer";}
+							}
+						?>
 						<tr>
-							<td>Joe Smith</td>
-							<td>Ride</td>
-							<td>12/25/2014 12:00 PM</td>
-							<td><a href="#" class="new">Find Volunteer</a></td>
+							<td><?php echo $e['first_name']." ".$e['last_name']; ?></td>
+							<td><?php switch($e['event_type']){ case 0: echo "Transportation"; break; case 1: echo "Meals"; break; case 2: echo "Appointment"; break; }?></td>
+							<td><?php echo date("m/d/Y H:i:s A", strtotime($e['start_date']." ".$e['arrive_time'])); ?></td>
+							<td><a href="#" class="<?php echo $class;?>"><?php echo $cmsg; ?></a></td>
 						</tr>
-						<tr>
-							<td>Jane Williams</td>
-							<td>Visit</td>
-							<td>12/25/2014 12:00 PM</td>
-							<td><a href="#" class="pending">Awaiting Response</a></td>
-						</tr>
-						<tr>
-							<td>Mary Jones</td>
-							<td>Food</td>
-							<td>12/25/2014 12:00 PM</td>
-							<td><a href="#" class="filled">Jerry Ross</a></td>
-						</tr>
+						<?php }while($e = mysql_fetch_assoc($result));
+					}?>						
 				</table>
 			</div>
-		<?php 	
+		<?php 
 		$date = strtotime("+1 day", $date);
 		endfor;?>
-		</div>
 	</div>
 </div>
 
