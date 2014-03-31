@@ -60,7 +60,7 @@ if(!$rid){
 		mysql_query($update_sql) or die(mysql_error());
 	}else if($_POST['save'] == 'CREATE EVENT'){
 		//this should come from new event form
-		//die(var_dump($_POST));
+		die(var_dump($_POST));
 		$show_events = true;
 		$rid = $_POST['recip-id'];
 	}
@@ -209,7 +209,7 @@ $active = 'recip'
 				</form>
 			</div>
 		</div>
-		<div class="recip-view <?php echo ($show_events) ? "hide" : "";?>" id="history">
+		<div class="recip-view hide" id="history">
 			<div class="tab-content-wrapper">
 				<h4>History</h4>
 				<table class="dynamic-table">

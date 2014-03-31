@@ -18,8 +18,6 @@ if($rid){
       <form id="new-event" action="../recipients/view.php" method="POST" class="form-horizontal">
       <legend></legend>
 		<fieldset>
-			<input id="recip-id" type="hidden" name="recip-id" value="<?php echo $rid;?>"/>
-			<input id="event-type-input" type="hidden" name="event-type" value=""/>
 			<div class="control-group">  
 	            <label class="control-label" for="event-type">Event Type</label>  
 	            <div class="controls">  
@@ -33,8 +31,13 @@ if($rid){
 	            </div>
 	        </div>
 	    </fieldset>
+	    </form>
 	    <div class="event-form" id="trans">
+	    	<form id="new-event" action="../recipients/view.php" method="POST" class="form-horizontal">
+      		<legend></legend>
 	    	<fieldset>
+	    		<input id="recip-id" type="hidden" name="recip-id" value="<?php echo $rid;?>"/>
+				<input id="event-type-input" type="hidden" name="event-type" value="0"/>
 	    		<div class="control-group">
 	    			<label class="control-label" for="from-date">Date:</label>
 	    			<div class="controls">
@@ -96,7 +99,7 @@ if($rid){
 	    			</div>
 	    		</div>
 	    		<div class="control-group">
-	    			<label class="control-label" for="spec-instructions">Special Inspec-instructions</label>
+	    			<label class="control-label" for="spec-instructions">Special Instructions</label>
 	    			<div class="controls">
 	    				<textarea id="spec-instructions" name="spec-instructions"></textarea>
 	    			</div>
@@ -119,10 +122,18 @@ if($rid){
 				            </select>  
 				        </div>  
 				</div>
-	    	</fieldset>    	
+	    	</fieldset>
+	    	<div class="modal-footer">
+				<input type="submit" name="save" class="btn btn-primary" value="CREATE EVENT" /><br/>
+			</div>
+		</form>    	
 	    </div>
 	    <div class="event-form" id="visit">
-	        	<fieldset>
+	    	<form id="new-event" action="../recipients/view.php" method="POST" class="form-horizontal">
+      		<legend></legend>
+	    	<fieldset>
+	    		<input id="recip-id" type="hidden" name="recip-id" value="<?php echo $rid;?>"/>
+				<input id="event-type-input" type="hidden" name="event-type" value="1"/>
 	    		<div class="control-group">
 	    			<label class="control-label" for="from-date">Date:</label>
 	    			<div class="controls">
@@ -184,8 +195,17 @@ if($rid){
 				        </div>  
 				</div>
 	    	</fieldset>
+	    	<div class="modal-footer">
+				<input type="submit" name="save" class="btn btn-primary" value="CREATE EVENT" /><br/>
+			</div>
+		</form>
 	    </div>
 	    <div class="event-form" id="meal">
+	    	<form id="new-event" action="../recipients/view.php" method="POST" class="form-horizontal">
+      		<legend></legend>
+	    	<fieldset>
+	    		<input id="recip-id" type="hidden" name="recip-id" value="<?php echo $rid;?>"/>
+				<input id="event-type-input" type="hidden" name="event-type" value="2"/>
 	        <fieldset>
 	    		<div class="control-group">
 	    			<label class="control-label" for="from-date">Date: From</label>
@@ -260,15 +280,14 @@ if($rid){
 				        </div>  
 				</div>
 	    	</fieldset>
+	    	<div class="modal-footer">
+				<input type="submit" name="save" class="btn btn-primary" value="CREATE EVENT" /><br/>
+			</div>
 	    </div>
 	    <div class="event-form" id="other">
 	        	General Form
 	    </div>	        
 		</fieldset>
-		<div class="modal-footer">
-			<input type="submit" name="save" class="btn btn-primary" value="CREATE EVENT" /><br/>
-		</div>
-		</form>
 		<script type="text/javascript">
 			$('.phone-mask').mask("(999)999-9999");
 
