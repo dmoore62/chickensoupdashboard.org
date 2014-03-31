@@ -179,7 +179,7 @@ $active = 'volunteer'
 					</script>
 			</div>
 		</div>
-		<div class="vol-view" id="availablity">
+		<div class="vol-view" id="availability">
 			<div class="tab-content-wrapper">
 				<h4>Availablity</h4>
 				<?php if(isset($_POST['availabilty'])){
