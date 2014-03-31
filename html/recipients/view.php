@@ -60,9 +60,58 @@ if(!$rid){
 		mysql_query($update_sql) or die(mysql_error());
 	}else if($_POST['save'] == 'CREATE EVENT'){
 		//this should come from new event form
-		die(var_dump($_POST));
+		//die(var_dump($_POST));
 		$show_events = true;
 		$rid = $_POST['recip-id'];
+		$event_type = $_POST['event-type'];
+
+		//first all the data independent of event-type
+		$insert_data = array(
+			'event_type' => sanitize($_POST['event-type']),
+			'start_date' => date('Y-m-d H:i:s', strtotime($_POST['from-date'])),
+			'arrive_time' => date('H:i:s', strtotime($_POST['time'])),
+			'RID' => $rid,
+			'recurring' => $_POST['recurring']
+			);
+
+		//now all specific cases
+		switch ($event_type) {
+			case '0':
+				//transportation
+				$insert_data['round_trip'] = $_POST['round-trip'];
+				$insert_data['stay'] = $_POST['stay'];
+				$insert_data['appt_time'] = date('H:i:s', strtotime($_POST['appt-time']));
+				$insert_data['destion'] = sanitize($_POST['destination']);
+				$insert_data['comments'] = sanitize($_POST['directions']);
+				$insert_data['instructions'] = sanitize($_POST['spec-instructions']);
+				break;
+			case '1':
+				//visit
+			 	$insert_data['end_time'] = date('H:i:s', strtotime($_POST['end-time']));
+				$insert_data['appt_time'] = date('H:i:s', strtotime($_POST['appt-time']));
+				$insert_data['destion'] = sanitize($_POST['location']);
+				$insert_data['comments'] = sanitize($_POST['directions']);
+				$insert_data['instructions'] = sanitize($_POST['spec-instructions']);
+				break;
+			case '2':
+				$insert_data['end_date'] = date('Y-m-d H:i:s', strtotime($_POST['to-date']));
+				$insert_data['stay'] = $_POST['stay'];
+				$insert_data['appt_time'] = date('H:i:s', strtotime($_POST['deliver-time']));
+				$insert_data['destion'] = sanitize($_POST['deliver-to']);
+				$insert_data['comments'] = sanitize($_POST['directions']);
+				$insert_data['instructions'] = sanitize($_POST['restrictions']);
+				$insert_data['portion'] = sanitize($_POST['portions']);
+				break;			
+			default:
+				break;
+		}
+
+		$columns = implode(", ", array_keys($insert_data));
+		$values = "'".implode("', '", $insert_data)."'";
+		$insert_sql = "INSERT into Events ($columns) VALUES ($values);";
+
+		//create event
+		mysql_query($insert_sql) or die(mysql_error());
 	}
 }
 
@@ -71,6 +120,10 @@ $select_sql = "SELECT * FROM Recipients WHERE RID = '$rid';";
 $result = mysql_query($select_sql);
 $r = mysql_fetch_assoc($result);
 //die(var_dump($r));
+
+//Then get all recip events
+$event_sql = "SELECT * FROM Events WHERE RID = '$rid' ORDER BY EID DESC;";
+$event_results = mysql_query($event_sql);
 
 //volunteer/search controller
 //set css and js for this page
@@ -205,7 +258,9 @@ $active = 'recip'
 			<div class="tab-content-wrapper">
 				<h4>Events</h4>
 				<form name="vol_avail" action="recip_post.php" method="POST">
-				
+					<?php while($e = mysql_fetch_assoc($event_results)): ?>
+						<?php var_dump($e);?>
+					<?php endwhile; ?>
 				</form>
 			</div>
 		</div>

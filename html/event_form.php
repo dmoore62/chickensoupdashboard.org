@@ -150,10 +150,10 @@ if($rid){
 	    			</div>
 	    		</div>
 	    		<div class="control-group">
-	    			<label class="control-label" for="time">End Time</label>
+	    			<label class="control-label" for="end-time">End Time</label>
 	    			<div class="controls">
 	    				 <div class="input-append bootstrap-timepicker">
-							<input id="time" name="time" type="text" class="timepick">
+							<input id="end-time" name="end-time" type="text" class="timepick">
 							<span class="add-on"><i class="icon-time"></i></span>
 						</div>
 	    			</div>
@@ -171,7 +171,7 @@ if($rid){
 	    			</div>
 	    		</div>
 	    		<div class="control-group">
-	    			<label class="control-label" for="spec-instructions">Special Inspec-instructions</label>
+	    			<label class="control-label" for="spec-instructions">Special Instructions</label>
 	    			<div class="controls">
 	    				<textarea id="spec-instructions" name="spec-instructions"></textarea>
 	    			</div>
