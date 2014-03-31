@@ -6,6 +6,7 @@ require "../../config/mysql_header.php";
 require "../helpers/sanitize.php";
 
 $rid = $_GET['rid'];
+$show_events = false;
 if(!$rid){
 	if($_POST['save'] == 'SAVE'){
 		//new recip insert and return id
@@ -57,6 +58,11 @@ if(!$rid){
 		$update_sql = "UPDATE Recipients SET $update_str WHERE RID = '$rid';";
 		
 		mysql_query($update_sql) or die(mysql_error());
+	}else if($_POST['save'] == 'CREATE EVENT'){
+		//this should come from new event form
+		//die(var_dump($_POST));
+		$show_events = true;
+		$rid = $_POST['recip-id'];
 	}
 }
 
@@ -78,13 +84,13 @@ $active = 'recip'
 	<div id="nav-wrapper">
 		<div id="title"><h3>Care Recipient Info</h3></div>
 		<ul class="nav nav-tabs">
-		  <li class="active" data-tab="general"><a href="#">General</a></li>
-		  <li data-tab="events"><a href="#">Events</a></li>
+		  <li class="<?php echo ($show_events) ? "" : "active";?>" data-tab="general"><a href="#">General</a></li>
+		  <li class="<?php echo ($show_events) ? "active" : "";?>"data-tab="events"><a href="#">Events</a></li>
 		  <li data-tab="history"><a href="#">History</a></li>
 		</ul>
 	</div>
 	<div id="content-wrapper">
-		<div class="recip-view" id="general">
+		<div class="recip-view <?php echo ($show_events) ? "hide" : "";?>" id="general">
 			<div class="tab-content-wrapper">
 				<h4>General Info<a href="#" data-form="event_form"  data-for="rid" data-for-id="<?= $rid?>" class="pop_box btn btn-success">Create Event</a></h4>
 				<form id="new-recip" action="../recipients/view.php" method="POST" class="form-horizontal">
@@ -195,7 +201,7 @@ $active = 'recip'
 					</form>
 			</div>
 		</div>
-		<div class="recip-view" id="events">
+		<div class="recip-view <?php echo ($show_events) ? "" : "hide";?>" id="events">
 			<div class="tab-content-wrapper">
 				<h4>Events</h4>
 				<form name="vol_avail" action="recip_post.php" method="POST">
@@ -203,7 +209,7 @@ $active = 'recip'
 				</form>
 			</div>
 		</div>
-		<div class="recip-view" id="history">
+		<div class="recip-view <?php echo ($show_events) ? "hide" : "";?>" id="history">
 			<div class="tab-content-wrapper">
 				<h4>History</h4>
 				<table class="dynamic-table">

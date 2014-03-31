@@ -1,5 +1,6 @@
-div#events,
-div#history{
+div#general.hide,
+div#events.hide,
+div#history.hide{
 	display: none;
 }
 
