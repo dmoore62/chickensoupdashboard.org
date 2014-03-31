@@ -28,6 +28,41 @@ if($vid && isset($_POST['availability'])){
 	}
 }
 
+if(isset($_POST['Update'])){
+//update info
+		$rid = $_POST['rid'];
+		$update_data = array(
+			'first_name' => sanitize($_POST['fname']),
+			'last_name' => sanitize($_POST['lname']),
+			'email' => sanitize($_POST['email']),
+			'home_phone' => format_phone(sanitize($_POST['hphone'])),
+			'cell_phone' => format_phone(sanitize($_POST['cphone'])),
+			'work_phone' => format_phone(sanitize($_POST['wphone'])),
+			'gender' => $_POST['gender'],
+			'child1' => sanitize($_POST['child1']),
+			'child2' => sanitize($_POST['child2']),
+			'child3' => sanitize($_POST['child3']),
+			'other_acts' => sanitize($_POST['activities']),
+			'comments' => sanitize($_POST['notes']),
+			'sencond_lang' => sanitize($_POST['secLang']),
+			'SUV' => $_POST['suv'],
+			'meal' => $_POST['meals'],
+			'trans' => $_POST['transport'],
+			'visit' => $_POST['visits'],
+			'errands' => $_POST['errands']
+			);
+
+		//this is cryptic and shity, but it creates the correct update string
+		foreach ($update_data as $key => $value) {
+			$update_ary[] = "$key = '$value'";
+		}
+
+		$update_str = implode(", ",	$update_ary);
+
+		$update_sql = "UPDATE Volunteers SET $update_str WHERE VID = '$vid';";
+		mysql_query($update_sql) or die(mysql_error());
+}
+
 $select_sql = "SELECT * FROM Volunteers WHERE VID = '$vid';";
 $result = mysql_query($select_sql);
 $v = mysql_fetch_assoc($result);
@@ -60,7 +95,7 @@ $active = 'volunteer'
 		<div class="vol-view" id="general">
 			<div class="tab-content-wrapper">
 				<h4>General Info</h4>
-				<form id="new-vol" action="../volunteers/view.php" method="POST" class="form-horizontal">
+				<form id="new-vol" method="POST" class="form-horizontal">
 			      <legend></legend>
 			      <div class="row-fluid">
 					<fieldset>
@@ -101,9 +136,36 @@ $active = 'volunteer'
 					              <input type="text" class="input-large phone-mask" name="wphone" id="wphone" value="<?php echo $v['work_phone'];?>">  
 					            </div>  
 					        </div>
+					        <div class="control-group">  
+					            <label class="control-label" for="hphone">Child One Birth Year</label>  
+					            <div class="controls">  
+					              <input type="text" class="input-large" name="child1" id="child1" value="<?php echo $v['child1'];?>">  
+					            </div>  
+					        </div>
+					        <div class="control-group">  
+					            <label class="control-label" for="hphone">Child Two Birth Year</label>  
+					            <div class="controls">  
+					              <input type="text" class="input-large" name="child2" id="child2" value="<?php echo $v['child2'];?>">  
+					            </div>  
+					        </div>
+					        <div class="control-group">  
+					            <label class="control-label" for="hphone">Child Three Birth Year</label>  
+					            <div class="controls">  
+					              <input type="text" class="input-large" name="child3" id="child3" value="<?php echo $v['child3'];?>">  
+					            </div>  
+					        </div>
 				        </div>
 				        <!-- <div class="span1"></div> -->
 				        <div class="span5">
+				        	<div class="control-group">  
+					            <label class="control-label" for="suv">Gender</label>  
+					            <div class="controls">  
+					              <select name="gender" id="gender" class="form-control">
+					              	<option value="1" <?php if($v['gender']) echo "selected";?>>Male</option>
+					              	<option value="0" <?php if(!$v['gender']) echo "selected";?>>Female</option>
+					              </select>  
+					            </div>  
+					        </div>
 				        	<div class="control-group">  
 					            <label class="control-label" for="suv">Has SUV?</label>  
 					            <div class="controls">  
@@ -145,7 +207,7 @@ $active = 'volunteer'
 					            <div class="controls">  
 					              <select name="errands" id="errands" class="form-control">
 					              	<option value="1" <?php if(!$v['errands']) echo "selected";?>>Yes</option>
-					              	<option value="0" <?php if(!$v['']) echo "selected";?>>No</option>
+					              	<option value="0" <?php if(!$v['errands']) echo "selected";?>>No</option>
 					              </select>  
 					            </div>  
 					        </div>
@@ -171,7 +233,7 @@ $active = 'volunteer'
 					</fieldset>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" name="save" class="btn btn-primary" value="SAVE" /><br/>
+						<button type="submit" name="Update" value="Update" class="btn btn-primary">Save Information</button>
 					</div>
 					</form>
 					<script type="text/javascript">
