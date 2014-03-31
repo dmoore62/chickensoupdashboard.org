@@ -181,7 +181,7 @@ $active = 'volunteer'
 		</div>
 		<div class="vol-view" id="availability">
 			<div class="tab-content-wrapper">
-				<h4>Availablity</h4>
+				<h4>Availability</h4>
 				<?php if(isset($_POST['availabilty'])){
 					if($rresult){ ?>
 						<div class="alert alert-success">Availabilty updated successfully!</div>
