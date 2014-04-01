@@ -2,7 +2,7 @@
 
 require "../config/mysql_header.php";
 
-$eid = $_GET['EID'];
+$eid = $_GET['eid'];
 
 $select_sql = "SELECT * FROM Events E, Recipients R WHERE E.EID = '$eid' AND E.RID = R.RID;";
 $results = mysql_query($select_sql);
@@ -42,8 +42,8 @@ $result = mysql_query($select_sql);
 						<tr>
 							<td><?php echo $v['last_name'].", ".$v['first_name']; ?></td>
 							<td>4/01/2014</td>
-							<td><input class="ajax_call" data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $e['EID'];?>" type="checkbox" name="called"/></td>
-							<td><button data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $e['EID'];?>" type="button" class="ajax_add btn btn-primary" name="call">Add to Event</button></td>
+							<td><input class="ajax_call" data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $eid;?>" type="checkbox" name="called"/></td>
+							<td><button data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $eid;?>" type="button" class="ajax_add btn btn-primary" name="call">Add to Event</button></td>
 						</tr>
 					<?php endwhile; ?>
 				</tbody>
@@ -61,10 +61,23 @@ $result = mysql_query($select_sql);
 		var cur = $(this);
 		var vol = cur.attr('data-vid');
 		var eid = cur.attr('data-eid');
+		alert(eid);
 		if(cur.is(":checked")){
 			//alert('unchecked');
 			//do ajax to phone insert
-
+			$.ajax({
+				method:"POST",
+				//dataType: "json",
+				data: {vid : vol,
+						eid: eid},
+				url: "../log_call.php",
+				success: function(resp){
+					alert(resp);
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
 		}else{
 			//alert('checked');
 			//do ajax to delete call record
