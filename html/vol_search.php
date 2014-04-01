@@ -41,8 +41,8 @@ $result = mysql_query($select_sql);
 						<tr>
 							<td><?php echo $v['last_name'].", ".$v['first_name']; ?></td>
 							<td>4/01/2014</td>
-							<td><input type="checkbox" name="called" value="checked" checked/></td>
-							<td><button type="button" class="btn btn-primary" name="call">Add to Event</button></td>
+							<td><input class="ajax_call" data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $e['EID'];?>" type="checkbox" name="called"/></td>
+							<td><button data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $e['EID'];?>" type="button" class="ajax_add btn btn-primary" name="call">Add to Event</button></td>
 						</tr>
 					<?php endwhile; ?>
 				</tbody>
@@ -54,4 +54,24 @@ $result = mysql_query($select_sql);
 </div>
 <script type="text/javascript">
 	$('table.dynamic-styled').dataTable();
+
+	$('.ajax_call').on('click', function(e){
+		//e.preventDefault();
+		var cur = $(this);
+		var vol = cur.attr('data-vid');
+		var eid = cur.attr('data-eid');
+		if(cur.is(":checked")){
+			//alert('unchecked');
+			//do ajax to phone insert
+
+		}else{
+			//alert('checked');
+			//do ajax to delete call record
+		}
+	});
+
+	$('.ajax_add').on('click', function(e){
+		e.preventDefault();
+		alert('clicked');
+	});
 </script>
