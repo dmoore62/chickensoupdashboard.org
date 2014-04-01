@@ -187,3 +187,14 @@ table thead tr{
 .table-wrapper h4{
 	text-decoration: underline;
 }
+
+div#vol-modal.modal
+{
+	width: 700px;
+	margin-left: -350px;
+}
+
+div#vol-modal .modal-footer
+{
+	height: 30px;
+}
