@@ -3,8 +3,65 @@ if($_SESSION["logged_in"] != true){
     header("Location: http://".$_SERVER["HTTP_HOST"]);
 }
 //die(var_dump($_POST));
+require "../../config/mysql_header.php";
+require "../helpers/sanitize.php";
 
 $vid = $_GET['vid'];
+
+if(!$vid){
+	if(isset($_POST['Update'])){
+	//update info
+			$rid = $_POST['rid'];
+			$update_data = array(
+				'first_name' => sanitize($_POST['fname']),
+				'last_name' => sanitize($_POST['lname']),
+				'email' => sanitize($_POST['email']),
+				'home_phone' => format_phone(sanitize($_POST['hphone'])),
+				'cell_phone' => format_phone(sanitize($_POST['cphone'])),
+				'work_phone' => format_phone(sanitize($_POST['wphone'])),
+				'gender' => $_POST['gender'],
+				'child1' => sanitize($_POST['child1']),
+				'child2' => sanitize($_POST['child2']),
+				'child3' => sanitize($_POST['child3']),
+				'other_acts' => sanitize($_POST['activities']),
+				'comments' => sanitize($_POST['notes']),
+				'sencond_lang' => sanitize($_POST['secLang']),
+				'SUV' => $_POST['suv'],
+				'meal' => $_POST['meals'],
+				'trans' => $_POST['transport'],
+				'visit' => $_POST['visits'],
+				'errands' => $_POST['errands']
+				);
+
+			//this is cryptic and shity, but it creates the correct update string
+			foreach ($update_data as $key => $value) {
+				$update_ary[] = "$key = '$value'";
+			}
+
+			$update_str = implode(", ",	$update_ary);
+
+			$update_sql = "UPDATE Volunteers SET $update_str WHERE VID = '$vid';";
+			mysql_query($update_sql) or die(mysql_error());
+	}else if($_POST['save'] == 'SAVE'){
+		$insert_data = array(
+			'first_name' => sanitize($_POST['fname']),
+			'last_name' => sanitize($_POST['lname']),
+			'email' => sanitize($_POST['email']),
+			'home_phone' => format_phone(sanitize($_POST['hphone'])),
+			'cell_phone' => format_phone(sanitize($_POST['cphone'])),
+			'work_phone' => format_phone(sanitize($_POST['wphone']))
+		);
+
+		$columns = implode(", ", array_keys($insert_data));
+		$values = "'".implode("', '", $insert_data)."'";
+		$insert_sql = "INSERT into Volunteers ($columns) VALUES ($values);";
+		//die($insert_sql);
+		mysql_query($insert_sql) or die(mysql_error());
+		//die(mysql_insert_id());
+		$vid = mysql_insert_id() or die('here');
+	}
+}
+
 $dowMap = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
 if($vid && isset($_POST['availability'])){
 	if($_POST['new']){
@@ -26,41 +83,6 @@ if($vid && isset($_POST['availability'])){
 			$rresult = mysql_query($update_sql) or die(mysql_error());
 		}
 	}
-}
-
-if(isset($_POST['Update'])){
-//update info
-		$rid = $_POST['rid'];
-		$update_data = array(
-			'first_name' => sanitize($_POST['fname']),
-			'last_name' => sanitize($_POST['lname']),
-			'email' => sanitize($_POST['email']),
-			'home_phone' => format_phone(sanitize($_POST['hphone'])),
-			'cell_phone' => format_phone(sanitize($_POST['cphone'])),
-			'work_phone' => format_phone(sanitize($_POST['wphone'])),
-			'gender' => $_POST['gender'],
-			'child1' => sanitize($_POST['child1']),
-			'child2' => sanitize($_POST['child2']),
-			'child3' => sanitize($_POST['child3']),
-			'other_acts' => sanitize($_POST['activities']),
-			'comments' => sanitize($_POST['notes']),
-			'sencond_lang' => sanitize($_POST['secLang']),
-			'SUV' => $_POST['suv'],
-			'meal' => $_POST['meals'],
-			'trans' => $_POST['transport'],
-			'visit' => $_POST['visits'],
-			'errands' => $_POST['errands']
-			);
-
-		//this is cryptic and shity, but it creates the correct update string
-		foreach ($update_data as $key => $value) {
-			$update_ary[] = "$key = '$value'";
-		}
-
-		$update_str = implode(", ",	$update_ary);
-
-		$update_sql = "UPDATE Volunteers SET $update_str WHERE VID = '$vid';";
-		mysql_query($update_sql) or die(mysql_error());
 }
 
 $select_sql = "SELECT * FROM Volunteers WHERE VID = '$vid';";

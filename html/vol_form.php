@@ -27,7 +27,7 @@
 	              <input type="text" class="input-large" name="email" id="email">  
 	            </div>  
 	        </div>
-	        <div class="control-group">  
+	        <!-- <div class="control-group">  
 	            <label class="control-label" for="address">Address</label>  
 	            <div class="controls">  
 	              <input type="text" class="input-large" name="address" id="address">  
@@ -44,7 +44,7 @@
 	            <div class="controls">  
 	              <input type="text" class="input-large" name="postal" id="postal">  
 	            </div>  
-	        </div> 
+	        </div> --> 
 			<div class="control-group">  
 	            <label class="control-label" for="hphone">Home Phone</label>  
 	            <div class="controls">  
