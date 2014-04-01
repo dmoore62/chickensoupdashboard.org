@@ -260,7 +260,9 @@ $active = 'recip'
 					<?php while($e = mysql_fetch_assoc($event_results)): ?>
 						<?php if($e['event_type'] == '0'):?>
 							<form name="vol_avail" action="recip_post.php" method="POST" class="form-horizontal">
-							<legend>Transportation - <?php echo date("m/d/Y", strtotime($e['start_date']));?></legend>
+							<legend>Transportation - <?php echo date("m/d/Y", strtotime($e['start_date']));?>
+								<a href="#" data-form="find_vol_form"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-success">Find Volunteer</a>
+							</legend>
 							<div class="row-fluid">
 							<div class="span6">
 							<fieldset>
@@ -359,7 +361,9 @@ $active = 'recip'
 					    	</form>
 						<?php elseif($e['event_type'] == '1'):?>
 							<form id="new-event" method="POST" class="form-horizontal">
-					      		<legend>Visit - <?php echo date('m/d/Y', strtotime($e['start_date']));?></legend>
+					      		<legend>Visit - <?php echo date('m/d/Y', strtotime($e['start_date']));?>
+					      			<a href="#" data-form="find_vol_form"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-success">Find Volunteer</a>
+					      		</legend>
 					      		<div class="row-fluid">
 					      		<div class="span6">
 						    	<fieldset>
@@ -435,7 +439,9 @@ $active = 'recip'
 							</form>
 						<?php else:?>
 							<form id="new-event" action="../recipients/view.php" method="POST" class="form-horizontal">
-					      		<legend>Meal - <?php echo date("m/d/Y", strtotime($e['start_date']));?></legend>
+					      		<legend>Meal - <?php echo date("m/d/Y", strtotime($e['start_date']));?>
+					      			<a href="#" data-form="find_vol_form"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-success">Find Volunteer</a>
+					      		</legend>
 					      		<div class="row-fluid">
 					      		<div class="span6">
 						    	<fieldset>

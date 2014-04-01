@@ -9,3 +9,16 @@ h4 a.btn-success{
 	margin-top: -8px;
 	width: 183px;
 }
+
+div#events legend
+{
+	border-top: 1px solid #e5e5e5;
+}
+
+div#events legend a.pop_box
+{
+	float: right;
+	margin-right: 10px;
+	margin-top: 5px;
+	width: 250px;
+}
