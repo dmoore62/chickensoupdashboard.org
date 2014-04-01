@@ -61,7 +61,7 @@ $result = mysql_query($select_sql);
 		var cur = $(this);
 		var vol = cur.attr('data-vid');
 		var eid = cur.attr('data-eid');
-		alert(eid);
+		//alert(eid);
 		if(cur.is(":checked")){
 			//alert('unchecked');
 			//do ajax to phone insert
@@ -73,6 +73,7 @@ $result = mysql_query($select_sql);
 				url: "../log_call.php",
 				success: function(resp){
 					alert(resp);
+					//go header
 				},
 				error:function(err){
 					console.log(err);
@@ -86,6 +87,21 @@ $result = mysql_query($select_sql);
 
 	$('.ajax_add').on('click', function(e){
 		e.preventDefault();
-		alert('clicked');
+		var cur = $(this);
+		var vol = cur.attr('data-vid');
+		var eid = cur.attr('data-eid');
+		$.ajax({
+				method:"POST",
+				//dataType: "json",
+				data: {vid : vol,
+						eid: eid},
+				url: "../log_event.php",
+				success: function(resp){
+					window.location = "/welcome"
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
 	});
 </script>
