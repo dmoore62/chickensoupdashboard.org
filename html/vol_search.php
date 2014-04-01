@@ -1,16 +1,9 @@
-<?php session_start();
-if($_SESSION["logged_in"] != true){
-    header("Location: http://".$_SERVER["HTTP_HOST"]);
-}
+<?php
 
-require "config/mysql_header.php";
+require "../config/mysql_header.php";
 
 $eid = $_GET['EID'];
-//welcome controller
-//set css and js for this page
-$stylesheet = '/css/welcome.css';
-$script = '/js/welcome.js';
-$active = 'dashboard';
+
 $select_sql = "SELECT * FROM Events E, Recipients R WHERE E.EID = '$eid' AND E.RID = R.RID;";
 $results = mysql_query($select_sql);
 $e = mysql_fetch_assoc($results);
@@ -22,8 +15,8 @@ if($e['child']){
 }else{
 	$select_sql = "SELECT V.last_name, V.first_name, V.VID FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND B.weekday = '$wday' AND B.AM = '$am' AND B.PM = '$pm' AND (V.child1 = 0 AND V.child2 = 0 AND V.child3 = 0) AND V.SUV = '$suv' ORDER BY V.last_name ASC;";
 }
+$select_sql = "SELECt * FROM Volunteers;";
 $result = mysql_query($select_sql);
-$v = mysql_fetch_assoc($result);
 
 ?>
 <div class="modal" id="vol-modal">
