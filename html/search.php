@@ -21,7 +21,7 @@ $vol_results = mysql_query($queryv);
 				<?php endwhile;?>
 			<?php else:?>
 				<li>No Recipients Found</li>
-				<li><?= $queryr;?></li> <!-- Should this be here? -->
+				<!-- <li><?= $queryr;?></li> <!-- Should this be here? --> <!--Nope!-->
 			<?php endif;?>
 		</ul>
 	</li>
@@ -29,7 +29,7 @@ $vol_results = mysql_query($queryv);
 		<ul id="vol-list">
 			<?php if(mysql_num_rows($vol_results) > 0):?>
 				<?php while($r = mysql_fetch_assoc($vol_results)):?>
-					<li><a href="/recipients/view.php?rid=<?= $r['VID'];?>"><?= $r['first_name']." ".$r['last_name'];?></a></li>
+					<li><a href="/volunteers/view.php?vid=<?= $r['VID'];?>"><?= $r['first_name']." ".$r['last_name'];?></a></li>
 				<?php endwhile;?>
 			<?php else:?>
 				<li>No Volunteers Found</li>

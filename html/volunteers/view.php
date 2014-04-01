@@ -7,11 +7,12 @@ require "../../config/mysql_header.php";
 require "../helpers/sanitize.php";
 
 $vid = $_GET['vid'];
-
+$dowMap = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
 if(!$vid){
 	if(isset($_POST['Update'])){
 	//update info
-			$rid = $_POST['rid'];
+			//die(var_dump($_POST));
+			$vid = $_POST['vid'];
 			$update_data = array(
 				'first_name' => sanitize($_POST['fname']),
 				'last_name' => sanitize($_POST['lname']),
@@ -59,28 +60,26 @@ if(!$vid){
 		mysql_query($insert_sql) or die(mysql_error());
 		//die(mysql_insert_id());
 		$vid = mysql_insert_id() or die('here');
-	}
-}
-
-$dowMap = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-if($vid && isset($_POST['availability'])){
-	if($_POST['new']){
-		for($i=0; $i<7; $i++){
-			$amv = $dowMap[$i]."a";
-			$pmv = $dowMap[$i]."p";
-			if(isset($_POST[$amv])) $am = 1; else $am = 0;
-			if(isset($_POST[$pmv])) $pm = 1; else $pm = 0;
-			$insert_sql = "INSERT into VAvailable (weekday, AM, PM, VID) VALUES ($i, $am, $pm, $vid);";
-			$rresult = mysql_query($insert_sql) or die(mysql_error());
-		}
-	}else{
-		for($i=0; $i<7; $i++){
-			$amv = $dowMap[$i]."a";
-			$pmv = $dowMap[$i]."p";
-			if(isset($_POST[$amv])) $am = 1; else $am = 0;
-			if(isset($_POST[$pmv])) $pm = 1; else $pm = 0;
-			$update_sql = "UPDATE VAvailable SET AM=$am, PM=$pm WHERE weekday = $i AND VID = $vid;";
-			$rresult = mysql_query($update_sql) or die(mysql_error());
+	}else if(isset($_POST['availability'])){
+		$vid = $_POST['vid'];
+		if($_POST['new']){
+			for($i=0; $i<7; $i++){
+				$amv = $dowMap[$i]."a";
+				$pmv = $dowMap[$i]."p";
+				if(isset($_POST[$amv])) $am = 1; else $am = 0;
+				if(isset($_POST[$pmv])) $pm = 1; else $pm = 0;
+				$insert_sql = "INSERT into VAvailable (weekday, AM, PM, VID) VALUES ($i, $am, $pm, $vid);";
+				$rresult = mysql_query($insert_sql) or die($insert_sql);
+			}
+		}else{
+			for($i=0; $i<7; $i++){
+				$amv = $dowMap[$i]."a";
+				$pmv = $dowMap[$i]."p";
+				if(isset($_POST[$amv])) $am = 1; else $am = 0;
+				if(isset($_POST[$pmv])) $pm = 1; else $pm = 0;
+				$update_sql = "UPDATE VAvailable SET AM=$am, PM=$pm WHERE weekday = $i AND VID = $vid;";
+				$rresult = mysql_query($update_sql) or die($update_sql);
+			}
 		}
 	}
 }
@@ -109,7 +108,7 @@ $active = 'volunteer'
 		<div id="title"><h3>Volunteer Info</h3></div>
 		<ul class="nav nav-tabs">
 		  <li class="active" data-tab="general"><a href="#">General</a></li>
-		  <li data-tab="availablity"><a href="#">Availablity</a></li>
+		  <li data-tab="availability"><a href="#">Availablity</a></li>
 		  <li data-tab="history"><a href="#">History</a></li>
 		</ul>
 	</div>
@@ -117,7 +116,7 @@ $active = 'volunteer'
 		<div class="vol-view" id="general">
 			<div class="tab-content-wrapper">
 				<h4>General Info</h4>
-				<form id="new-vol" method="POST" class="form-horizontal">
+				<form id="new-vol" action="../volunteers/view.php" method="POST" class="form-horizontal">
 			      <legend></legend>
 			      <div class="row-fluid">
 					<fieldset>
@@ -161,19 +160,19 @@ $active = 'volunteer'
 					        <div class="control-group">  
 					            <label class="control-label" for="hphone">Child One Birth Year</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="child1" id="child1" value="<?php echo $v['child1'];?>">  
+					              <input type="text" class="input-large" name="child1" id="child1" value="<?php echo ($v['child1']) ? $v['child1'] : '';?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="hphone">Child Two Birth Year</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="child2" id="child2" value="<?php echo $v['child2'];?>">  
+					              <input type="text" class="input-large" name="child2" id="child2" value="<?php echo ($v['child2']) ? $v['child2'] : '';?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="hphone">Child Three Birth Year</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="child3" id="child3" value="<?php echo $v['child3'];?>">  
+					              <input type="text" class="input-large" name="child3" id="child3" value="<?php echo ($v['child3']) ? $v['child3'] : '';?>">  
 					            </div>  
 					        </div>
 				        </div>
@@ -236,7 +235,7 @@ $active = 'volunteer'
 					        <div class="control-group">  
 					            <label class="control-label" for="activities">Other Activities</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large phone-mask" name="activities" id="activities" value="<?php echo $v['other_acts'];?>">  
+					              <input type="text" class="input-large" name="activities" id="activities" value="<?php echo $v['other_acts'];?>">  
 					            </div>  
 					        </div>
 					        <div class="control-group">  
@@ -252,6 +251,7 @@ $active = 'volunteer'
 					            </div>  
 					        </div>
 				        </div>
+				        <input type="hidden" name="vid" value="<?= $v['VID'];?>">
 					</fieldset>
 					</div>
 					<div class="modal-footer">
@@ -272,7 +272,8 @@ $active = 'volunteer'
 				<?php 	}else{ ?>
 						<div class="alert alert-error">Availabilty did not update successfully!</div>
 				<?php }} ?>
-				<form name="vol_avail" method="post">
+				<form name="vol_avail" action="/volunteers/view.php" method="post">
+					<input type="hidden" name="vid" value="<?php echo $v['VID'];?>">
 					<table class="table table-striped table-hover">
 						<thead><tr>
 							<th></th>
