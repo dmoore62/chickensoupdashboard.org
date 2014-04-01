@@ -206,7 +206,6 @@ if($rid){
 	    	<fieldset>
 	    		<input id="recip-id" type="hidden" name="recip-id" value="<?php echo $rid;?>"/>
 				<input id="event-type-input" type="hidden" name="event-type" value="2"/>
-	        <fieldset>
 	    		<div class="control-group">
 	    			<label class="control-label" for="from-date">Date: From</label>
 	    			<div class="controls">
@@ -283,6 +282,7 @@ if($rid){
 	    	<div class="modal-footer">
 				<input type="submit" name="save" class="btn btn-primary" value="CREATE EVENT" /><br/>
 			</div>
+			</form>
 	    </div>
 	    <div class="event-form" id="other">
 	        	General Form

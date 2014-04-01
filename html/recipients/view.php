@@ -257,9 +257,272 @@ $active = 'recip'
 		<div class="recip-view <?php echo ($show_events) ? "" : "hide";?>" id="events">
 			<div class="tab-content-wrapper">
 				<h4>Events</h4>
-				<form name="vol_avail" action="recip_post.php" method="POST">
 					<?php while($e = mysql_fetch_assoc($event_results)): ?>
-						<?php var_dump($e);?>
+						<?php if($e['event_type'] == '0'):?>
+							<form name="vol_avail" action="recip_post.php" method="POST" class="form-horizontal">
+							<legend>Transportation - <?php echo date("m/d/Y", strtotime($e['start_date']));?></legend>
+							<div class="row-fluid">
+							<div class="span6">
+							<fieldset>
+					    		<input id="recip-id" type="hidden" name="recip-id" value="<?php echo $rid;?>"/>
+								<input id="event-type-input" type="hidden" name="event-type" value="0"/>
+					    		<div class="control-group">
+					    			<label class="control-label" for="from-date">Date:</label>
+					    			<div class="controls">
+					    				<input type="text" name="from-date" id="from-date" class="datepick" value="<?php echo date('m/d/Y', strtotime($e['start_date']));?>"/>
+					    			</div>
+					    		</div>
+					    		<div class="control-group">  
+								    <label class="control-label" for="round-trip">Round Trip?</label>  
+								        <div class="controls">  
+								            <select name="round-trip" id="round-trip" class="form-control">
+								             	<option <?php echo ($e['round_trip']) ? "selected" : "";?> value="1">Yes</option>
+								              	<option <?php echo (!$e['round_trip']) ? "selected" : "";?> value="0">No</option>
+								            </select>  
+								        </div>  
+								</div>
+								<div class="control-group">  
+								    <label class="control-label" for="stay">Stay with Client?</label>  
+								        <div class="controls">  
+								            <select name="stay" id="stay" class="form-control">
+								             	<option <?php echo ($e['stay']) ? "selected" : "";?> value="1">Yes</option>
+								              	<option <?php echo (!$e['stay']) ? "selected" : "";?> value="0">No</option>
+								            </select>  
+								        </div>  
+								</div>
+					    		<div class="control-group">
+					    			<label class="control-label" for="time">Pick Up Time</label>
+					    			<div class="controls">
+					    				 <div class="input-append bootstrap-timepicker">
+											<input id="time" name="time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['arrive_time']));?>">
+											<span class="add-on"><i class="icon-time"></i></span>
+										</div>
+					    			</div>
+					    		</div>
+					    		<div class="control-group">
+					    			<label class="control-label" for="appt-time">Appt. Time</label>
+					    			<div class="controls">
+					    				 <div class="input-append bootstrap-timepicker">
+											<input id="appt-time" name="appt-time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['appt_time']));?>">
+											<span class="add-on"><i class="icon-time"></i></span>
+										</div>
+					    			</div>
+					    		</div>
+					    		<div class="control-group">
+					    			<label class="control-label" for="destination">Destination</label>
+					    			<div class="controls">
+					    				<input type="text" name="destination" id="destination" value="<?php echo $e['destion'];?>"/>
+					    			</div>
+					    		</div>
+					    		</fieldset>
+					    		</div>
+					    		<div class="span6">
+					    		<fieldset>
+					    		<div class="control-group">
+					    			<label class="control-label" for="appt-length">Appt. Length</label>
+					    			<div class="controls">
+					    				<input type="text" name="appt-length" id="appt-length"/>
+					    			</div>
+					    		</div>
+					    		<div class="control-group">
+					    			<label class="control-label" for="directions">Directions</label>
+					    			<div class="controls">
+					    				<textarea id="directions" name="directions"><?php echo $e['comment'];?></textarea>
+					    			</div>
+					    		</div>
+					    		<div class="control-group">
+					    			<label class="control-label" for="spec-instructions">Special Instructions</label>
+					    			<div class="controls">
+					    				<textarea id="spec-instructions" name="spec-instructions"><?php echo $e['instructions'];?></textarea>
+					    			</div>
+					    		</div>
+					    		<div class="control-group">  
+								    <label class="control-label" for="recurring">Recurring Event?</label>  
+								        <div class="controls">  
+								            <select name="recurring" id="recurring" class="form-control">
+								             	<option <?php echo ($e['recurring']) ? "selected" : "";?> value="1">Yes</option>
+								              	<option <?php echo (!$e['recurring']) ? "selected" : "";?>value="0">No</option>
+								            </select>  
+								        </div>  
+								</div>
+								<div class="control-group">  
+								    <label class="control-label" for="needs">Other Needs?</label>  
+								        <div class="controls">  
+								            <select name="needs" id="needs" class="form-control">
+								             	<option value="1">Yes</option>
+								              	<option value="0">No</option>
+								            </select>  
+								        </div>  
+								</div>
+					    	</fieldset>
+					    	</div>
+					    	</form>
+						<?php elseif($e['event_type'] == '1'):?>
+							<form id="new-event" method="POST" class="form-horizontal">
+					      		<legend>Visit - <?php echo date('m/d/Y', strtotime($e['start_date']));?></legend>
+					      		<div class="row-fluid">
+					      		<div class="span6">
+						    	<fieldset>
+						    		<input id="recip-id" type="hidden" name="recip-id" value="<?php echo $rid;?>"/>
+									<input id="event-type-input" type="hidden" name="event-type" value="1"/>
+						    		<div class="control-group">
+						    			<label class="control-label" for="from-date">Date:</label>
+						    			<div class="controls">
+						    				<input type="text" name="from-date" id="from-date" class="datepick" value="<?php echo date('m/d/Y', strtotime($e['start_date']));?>"/>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="time">Start Time</label>
+						    			<div class="controls">
+						    				 <div class="input-append bootstrap-timepicker">
+												<input id="time" name="time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['arrive_time']));?>">
+												<span class="add-on"><i class="icon-time"></i></span>
+											</div>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="end-time">End Time</label>
+						    			<div class="controls">
+						    				 <div class="input-append bootstrap-timepicker">
+												<input id="end-time" name="end-time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['end_time']));?>">
+												<span class="add-on"><i class="icon-time"></i></span>
+											</div>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="location">Location</label>
+						    			<div class="controls">
+						    				<input type="text" name="location" id="location" value="<?php echo $e['destion'];?>"/>
+						    			</div>
+						    		</div>
+						    		</fieldset>
+						    		</div>
+						    		<div class="span6">
+						    		<fieldset>
+						    		<div class="control-group">
+						    			<label class="control-label" for="directions">Directions</label>
+						    			<div class="controls">
+						    				<textarea id="directions" name="directions"><?php echo $e['comments'];?></textarea>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="spec-instructions">Special Instructions</label>
+						    			<div class="controls">
+						    				<textarea id="spec-instructions" name="spec-instructions"><?php echo $e['instructions'];?></textarea>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">  
+									    <label class="control-label" for="recurring">Recurring Event?</label>  
+									        <div class="controls">  
+									            <select name="recurring" id="recurring" class="form-control">
+									             	<option <?php echo ($e['stay']) ? "selected" : "";?> value="1">Yes</option>
+									              	<option <?php echo (!$e['stay']) ? "selected" : "";?> value="0">No</option>
+									            </select>  
+									        </div>  
+									</div>
+									<div class="control-group">  
+									    <label class="control-label" for="needs">Other Needs?</label>  
+									        <div class="controls">  
+									            <select name="needs" id="needs" class="form-control">
+									             	<option value="1">Yes</option>
+									              	<option value="0">No</option>
+									            </select>  
+									        </div>  
+									</div>
+						    	</fieldset>
+						    	</div>
+						    	</div>
+							</form>
+						<?php else:?>
+							<form id="new-event" action="../recipients/view.php" method="POST" class="form-horizontal">
+					      		<legend>Meal - <?php echo date("m/d/Y", strtotime($e['start_date']));?></legend>
+					      		<div class="row-fluid">
+					      		<div class="span6">
+						    	<fieldset>
+						    		<input id="recip-id" type="hidden" name="recip-id" value="<?php echo $rid;?>"/>
+									<input id="event-type-input" type="hidden" name="event-type" value="2"/>
+						    		<div class="control-group">
+						    			<label class="control-label" for="from-date">Date: From</label>
+						    			<div class="controls">
+						    				<input type="text" name="from-date" id="from-date" class="datepick" value="<?php echo date('m/d/Y', strtotime($e['start_date']));?>"/>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="to-date">To</label>
+						    			<div class="controls">
+						    				<input type="text" name="to-date" id="to-date" class="datepick" value="<?php echo date('m/d/Y', strtotime($e['end_date']));?>"/>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="time">Time</label>
+						    			<div class="controls">
+						    				 <div class="input-append bootstrap-timepicker">
+												<input id="time" name="time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['arrive_time']));?>">
+												<span class="add-on"><i class="icon-time"></i></span>
+											</div>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="portions">Portions</label>
+						    			<div class="controls">
+						    				<input type="text" name="portions" id="portions" value="<?php echo $e['portion'];?>"/>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="restrictions">Dietary Restrictions</label>
+						    			<div class="controls">
+						    				<textarea id="restrictions" name="restrictions"><?php echo $e['instructions'];?></textarea>
+						    			</div>
+						    		</div>
+						    		</fieldset>
+						    		</div>
+						    		<div class="span6">
+						    		<fieldset>
+						    		<div class="control-group">
+						    			<label class="control-label" for="deliver-to">Deliver To</label>
+						    			<div class="controls">
+						    				<input type="text" name="deliver-to" id="deliver-to" value="<?php echo $e['location'];?>"/>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="deliver-time">Deliver Time</label>
+						    			<div class="controls">
+						    				 <div class="input-append bootstrap-timepicker">
+												<input id="deliver-time" name="deliver-time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['appt_time']));?>">
+												<span class="add-on"><i class="icon-time"></i></span>
+											</div>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">
+						    			<label class="control-label" for="directions">Directions</label>
+						    			<div class="controls">
+						    				<textarea id="directions" name="directions"><?php echo $e['comments'];?></textarea>
+						    			</div>
+						    		</div>
+						    		<div class="control-group">  
+									    <label class="control-label" for="recurring">Recurring Event?</label>  
+									        <div class="controls">  
+									            <select name="recurring" id="recurring" class="form-control">
+									             	<option <?php echo ($e['recurring']) ? "selected" : "";?> value="1">Yes</option>
+									              	<option <?php echo (!$e['recurring']) ? "selected" : "";?> value="0">No</option>
+									            </select>  
+									        </div>  
+									</div>
+									<div class="control-group">  
+									    <label class="control-label" for="needs">Other Needs?</label>  
+									        <div class="controls">  
+									            <select name="needs" id="needs" class="form-control">
+									             	<option value="1">Yes</option>
+									              	<option value="0">No</option>
+									            </select>  
+									        </div>  
+									</div>
+						    	</fieldset>
+						    	</div>
+						    	</div>
+								</form>
+						<?php endif;?>
+						<?php //var_dump($e);?>
 					<?php endwhile; ?>
 				</form>
 			</div>
