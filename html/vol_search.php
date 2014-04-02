@@ -11,12 +11,13 @@ $wday = date("w", strtotime($e['start_date']));
 if(date("a", strtotime($e['start_date'].$e['arrive_time']))=="am"){ $am = 1; $pm = 0; }else{ $am = 0; $pm = 1; }
 $suv = $e['SUV'];
 if($e['child']){
-	$select_sql = "SELECT V.last_name, V.first_name, V.VID FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND B.weekday = '$wday' AND B.AM = '$am' AND B.PM = '$pm' AND V.SUV = '$suv' ORDER BY V.last_name ASC;";
+	$select_sql = "SELECT V.last_name, V.first_name, V.VID FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND B.weekday = '$wday' AND B.AM = '$am' AND B.PM = '$pm' AND V.SUV = '$suv' ORDER BY V.last_name ASC";
 }else{
-	$select_sql = "SELECT V.last_name, V.first_name, V.VID FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND B.weekday = '$wday' AND B.AM = '$am' AND B.PM = '$pm' AND (V.child1 = 0 AND V.child2 = 0 AND V.child3 = 0) AND V.SUV = '$suv' ORDER BY V.last_name ASC;";
+	$select_sql = "SELECT V.last_name, V.first_name, V.VID FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND B.weekday = '$wday' AND B.AM = '$am' AND B.PM = '$pm' AND (V.child1 = 0 AND V.child2 = 0 AND V.child3 = 0) AND V.SUV = '$suv' ORDER BY V.last_name ASC";
 }
-$select_sql = "SELECt * FROM Volunteers;";
 $result = mysql_query($select_sql);
+
+
 
 //get vols called for this event
 $called_sql = "SELECT VID FROM CallLog WHERE EID = '$eid';";
@@ -42,13 +43,19 @@ while($i = mysql_fetch_row($called_result)){
 						<th>Last Event</th>
 						<th>Called?</th>
 						<th>Add to Event</th>
+						
 					</tr>
 				</thead>
 				<tbody>
-					<?php while($v= mysql_fetch_assoc($result)): ?>
+					<?php while($v= mysql_fetch_assoc($result)): 
+						$vid = $v['VID'];
+						$recent_sql = "SELECT start_date FROM Events WHERE VID = '$vid' ORDER BY start_date DESC";
+						$recent_result = mysql_query($recent_sql);
+						$re = mysql_fetch_row($recent_result);
+					?>
 						<tr>
 							<td><?php echo $v['last_name'].", ".$v['first_name']; ?></td>
-							<td>4/01/2014</td>
+							<td><?php echo $re[0];?></td>
 							<td><input class="ajax_call" data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $eid;?>" type="checkbox" name="called" <?php echo (in_array($v['VID'], $called_vols)) ? "checked" : "";?>/></td>
 							<td><button data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $eid;?>" type="button" class="ajax_add btn btn-primary" name="call">Add to Event</button></td>
 						</tr>
