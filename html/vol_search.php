@@ -18,6 +18,13 @@ if($e['child']){
 $select_sql = "SELECt * FROM Volunteers;";
 $result = mysql_query($select_sql);
 
+//get vols called for this event
+$called_sql = "SELECT VID FROM CallLog WHERE EID = '$eid';";
+$called_result = mysql_query($called_sql);
+$called_vols = array();
+while($i = mysql_fetch_row($called_result)){ 
+	array_push($called_vols, $i[0]);
+}
 ?>
 <div class="modal" id="vol-modal">
 	<div class="modal-header">
@@ -42,7 +49,7 @@ $result = mysql_query($select_sql);
 						<tr>
 							<td><?php echo $v['last_name'].", ".$v['first_name']; ?></td>
 							<td>4/01/2014</td>
-							<td><input class="ajax_call" data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $eid;?>" type="checkbox" name="called"/></td>
+							<td><input class="ajax_call" data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $eid;?>" type="checkbox" name="called" <?php echo (in_array($v['VID'], $called_vols)) ? "checked" : "";?>/></td>
 							<td><button data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $eid;?>" type="button" class="ajax_add btn btn-primary" name="call">Add to Event</button></td>
 						</tr>
 					<?php endwhile; ?>
@@ -81,6 +88,7 @@ $result = mysql_query($select_sql);
 		}else{
 			//alert('checked');
 			//do ajax to delete call record
+			e.preventDefault();
 		}
 	});
 
