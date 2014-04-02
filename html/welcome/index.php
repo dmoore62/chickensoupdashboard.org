@@ -50,7 +50,6 @@ $active = 'dashboard';
 								$select_sql = "SELECT * FROM Volunteers WHERE VID=$event;";
 								$result2 = mysql_query($select_sql);
 								$v = mysql_fetch_assoc($result2);
-								$class="filled"; $cmsg = $v['first_name']." ".$v['last_name'];
 							}else{
 								$event=$e['EID'];
 								$select_sql = "SELECT * FROM CallLog WHERE EID=$event;";
