@@ -67,12 +67,11 @@ $result = mysql_query($select_sql);
 			//do ajax to phone insert
 			$.ajax({
 				method:"POST",
-				//dataType: "json",
 				data: {vid : vol,
 						eid: eid},
 				url: "../log_call.php",
 				success: function(resp){
-					alert(resp);
+					//alert(resp);
 					//go header
 				},
 				error:function(err){
@@ -92,7 +91,6 @@ $result = mysql_query($select_sql);
 		var eid = cur.attr('data-eid');
 		$.ajax({
 				method:"POST",
-				//dataType: "json",
 				data: {vid : vol,
 						eid: eid},
 				url: "../log_event.php",

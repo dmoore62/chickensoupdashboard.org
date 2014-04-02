@@ -29,9 +29,16 @@ function make_Tables(){
 	});
 }
 
+function disabled_fill_clicks(){
+	$('td a.filled').on('click', function(e){
+		e.preventDefault();
+	});
+}
+
 var d = $(document);
 d.ready(function(){
 	//alert("welcome");
 	make_Tables();
 	weekly_swp();
+	disabled_fill_clicks();
 });

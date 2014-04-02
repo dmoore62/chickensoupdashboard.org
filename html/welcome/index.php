@@ -66,7 +66,7 @@ $active = 'dashboard';
 							<td><?php switch($e['event_type']){ case 0: echo "Transportation"; break; case 1: echo "Meals"; break; case 2: echo "Appointment"; break; }?></td>
 							<td><?php echo date("m/d/Y H:i:s A", strtotime($e['start_date']." ".$e['arrive_time'])); ?></td>
 							<?php if($link){ $linka="/vol_search.php?EID=".$e['EID']; }else{ $linka="#"; }?>
-							<td><a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box new">Find Volunteer</a></td>
+							<td><a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box <?php echo $class;?>"><?php echo $cmsg;?></a></td>
 							<!-- <td><a href="<?php echo $linka;?>" class="<?php echo $class;?>"><?php echo $cmsg; ?></a></td> -->
 						</tr>
 						<?php }while($e = mysql_fetch_assoc($result));

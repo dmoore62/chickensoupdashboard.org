@@ -28,4 +28,6 @@ td a.pending{
 td a.filled{
 	background-color: #9ACD32;
 	color: #000;
+	cursor: default;
+	pointer-events: none;
 }
