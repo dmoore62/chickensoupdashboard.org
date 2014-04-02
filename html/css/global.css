@@ -108,7 +108,7 @@ div#search-wrapper #search-results{
 	display: none;
 	position: absolute;
 	z-index: 999;
-	height: 150px;
+	height: 250px;
 	width: 223px;
 	background-color: #e4e4e4;
 	border: 2px solid #000;
@@ -196,5 +196,5 @@ div#vol-modal.modal
 
 div#vol-modal .modal-footer
 {
-	height: 30px;
+	margin-top: 20px;
 }
