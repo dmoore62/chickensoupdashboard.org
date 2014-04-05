@@ -113,7 +113,7 @@ if($rid){
 				            </select>  
 				        </div>  
 				</div>
-				<div class="control-group">  
+				<!-- <div class="control-group">  
 				    <label class="control-label" for="needs">Other Needs?</label>  
 				        <div class="controls">  
 				            <select name="needs" id="needs" class="form-control">
@@ -121,7 +121,7 @@ if($rid){
 				              	<option value="0">No</option>
 				            </select>  
 				        </div>  
-				</div>
+				</div> -->
 	    	</fieldset>
 	    	<div class="modal-footer">
 				<input type="submit" name="save" class="btn btn-primary" value="CREATE EVENT" /><br/>
@@ -185,7 +185,7 @@ if($rid){
 				            </select>  
 				        </div>  
 				</div>
-				<div class="control-group">  
+				<!-- <div class="control-group">  
 				    <label class="control-label" for="needs">Other Needs?</label>  
 				        <div class="controls">  
 				            <select name="needs" id="needs" class="form-control">
@@ -193,7 +193,7 @@ if($rid){
 				              	<option value="0">No</option>
 				            </select>  
 				        </div>  
-				</div>
+				</div> -->
 	    	</fieldset>
 	    	<div class="modal-footer">
 				<input type="submit" name="save" class="btn btn-primary" value="CREATE EVENT" /><br/>
@@ -269,7 +269,7 @@ if($rid){
 				            </select>  
 				        </div>  
 				</div>
-				<div class="control-group">  
+				<!-- <div class="control-group">  
 				    <label class="control-label" for="needs">Other Needs?</label>  
 				        <div class="controls">  
 				            <select name="needs" id="needs" class="form-control">
@@ -277,7 +277,7 @@ if($rid){
 				              	<option value="0">No</option>
 				            </select>  
 				        </div>  
-				</div>
+				</div> -->
 	    	</fieldset>
 	    	<div class="modal-footer">
 				<input type="submit" name="save" class="btn btn-primary" value="CREATE EVENT" /><br/>

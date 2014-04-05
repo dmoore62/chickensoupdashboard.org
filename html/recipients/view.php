@@ -261,7 +261,27 @@ $active = 'recip'
 						<?php if($e['event_type'] == '0'):?>
 							<form name="vol_avail" action="recip_post.php" method="POST" class="form-horizontal">
 							<legend>Transportation - <?php echo date("m/d/Y", strtotime($e['start_date']));?>
-								<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-success">Find Volunteer</a>
+								<?php if($e['VID']):?>
+									<?php
+										$id = $e['VID'];
+										$name_sql = "SELECT first_name, last_name FROM Volunteers WHERE VID = '$id';";
+										$name_result = mysql_query($name_sql);
+										$n = mysql_fetch_row($name_result);
+									?>
+									<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="disabled btn btn-success"><?php echo $n[0]." ".$n[1];?></a>
+								<?php else:?>
+									<?php
+										$eid = $e['EID'];
+										$call_sql = "SELECT COUNT(*) FROM CallLog WHERE EID = '$eid';";
+										$call_result = mysql_query($call_sql);
+										$c = mysql_fetch_row($call_result);
+									?>
+									<?php if($c[0] > 0):?>
+										<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-warning">Awaiting Response</a>
+									<?php else:?>
+										<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-danger">Find Volunteer</a>
+									<?php endif;?>
+								<?php endif;?>
 							</legend>
 							<div class="row-fluid">
 							<div class="span6">
@@ -347,7 +367,7 @@ $active = 'recip'
 								            </select>  
 								        </div>  
 								</div>
-								<div class="control-group">  
+								<!-- <div class="control-group">  
 								    <label class="control-label" for="needs">Other Needs?</label>  
 								        <div class="controls">  
 								            <select name="needs" id="needs" class="form-control">
@@ -355,14 +375,34 @@ $active = 'recip'
 								              	<option value="0">No</option>
 								            </select>  
 								        </div>  
-								</div>
+								</div> -->
 					    	</fieldset>
 					    	</div>
 					    	</form>
 						<?php elseif($e['event_type'] == '1'):?>
 							<form id="new-event" method="POST" class="form-horizontal">
 					      		<legend>Visit - <?php echo date('m/d/Y', strtotime($e['start_date']));?>
-					      			<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-success">Find Volunteer</a>
+					      			<?php if($e['VID']):?>
+										<?php
+											$id = $e['VID'];
+											$name_sql = "SELECT first_name, last_name FROM Volunteers WHERE VID = '$id';";
+											$name_result = mysql_query($name_sql);
+											$n = mysql_fetch_row($name_result);
+										?>
+										<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="disabled btn btn-success"><?php echo $n[0]." ".$n[1];?></a>
+									<?php else:?>
+										<?php
+											$eid = $e['EID'];
+											$call_sql = "SELECT COUNT(*) FROM CallLog WHERE EID = '$eid';";
+											$call_result = mysql_query($call_sql);
+											$c = mysql_fetch_row($call_result);
+										?>
+										<?php if($c[0] > 0):?>
+											<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-warning">Awaiting Response</a>
+										<?php else:?>
+											<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-danger">Find Volunteer</a>
+										<?php endif;?>
+									<?php endif;?>
 					      		</legend>
 					      		<div class="row-fluid">
 					      		<div class="span6">
@@ -419,12 +459,12 @@ $active = 'recip'
 									    <label class="control-label" for="recurring">Recurring Event?</label>  
 									        <div class="controls">  
 									            <select name="recurring" id="recurring" class="form-control">
-									             	<option <?php echo ($e['stay']) ? "selected" : "";?> value="1">Yes</option>
-									              	<option <?php echo (!$e['stay']) ? "selected" : "";?> value="0">No</option>
+									             	<option <?php echo ($e['recurring']) ? "selected" : "";?> value="1">Yes</option>
+									              	<option <?php echo (!$e['recurring']) ? "selected" : "";?> value="0">No</option>
 									            </select>  
 									        </div>  
 									</div>
-									<div class="control-group">  
+									<!-- <div class="control-group">  
 									    <label class="control-label" for="needs">Other Needs?</label>  
 									        <div class="controls">  
 									            <select name="needs" id="needs" class="form-control">
@@ -432,7 +472,7 @@ $active = 'recip'
 									              	<option value="0">No</option>
 									            </select>  
 									        </div>  
-									</div>
+									</div> -->
 						    	</fieldset>
 						    	</div>
 						    	</div>
@@ -440,7 +480,27 @@ $active = 'recip'
 						<?php else:?>
 							<form id="new-event" action="../recipients/view.php" method="POST" class="form-horizontal">
 					      		<legend>Meal - <?php echo date("m/d/Y", strtotime($e['start_date']));?>
-					      			<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-success">Find Volunteer</a>
+					      			<?php if($e['VID']):?>
+										<?php
+											$id = $e['VID'];
+											$name_sql = "SELECT first_name, last_name FROM Volunteers WHERE VID = '$id';";
+											$name_result = mysql_query($name_sql);
+											$n = mysql_fetch_row($name_result);
+										?>
+										<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="disabled btn btn-success"><?php echo $n[0]." ".$n[1];?></a>
+									<?php else:?>
+										<?php
+											$eid = $e['EID'];
+											$call_sql = "SELECT COUNT(*) FROM CallLog WHERE EID = '$eid';";
+											$call_result = mysql_query($call_sql);
+											$c = mysql_fetch_row($call_result);
+										?>
+										<?php if($c[0] > 0):?>
+											<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-warning">Awaiting Response</a>
+										<?php else:?>
+											<a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box btn btn-danger">Find Volunteer</a>
+										<?php endif;?>
+									<?php endif;?>
 					      		</legend>
 					      		<div class="row-fluid">
 					      		<div class="span6">
@@ -514,7 +574,7 @@ $active = 'recip'
 									            </select>  
 									        </div>  
 									</div>
-									<div class="control-group">  
+									<!-- <div class="control-group">  
 									    <label class="control-label" for="needs">Other Needs?</label>  
 									        <div class="controls">  
 									            <select name="needs" id="needs" class="form-control">
@@ -522,7 +582,7 @@ $active = 'recip'
 									              	<option value="0">No</option>
 									            </select>  
 									        </div>  
-									</div>
+									</div> -->
 						    	</fieldset>
 						    	</div>
 						    	</div>

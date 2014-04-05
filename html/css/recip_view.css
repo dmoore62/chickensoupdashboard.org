@@ -15,10 +15,16 @@ div#events legend
 	border-top: 1px solid #e5e5e5;
 }
 
-div#events legend a.pop_box
+div#events legend a.pop_box,
+div#events legend a.disabled
 {
 	float: right;
 	margin-right: 10px;
 	margin-top: 5px;
 	width: 250px;
+}
+
+div#events legend a.disabled
+{
+	pointer-events: none;
 }
