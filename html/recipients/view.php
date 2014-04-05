@@ -121,9 +121,13 @@ $result = mysql_query($select_sql);
 $r = mysql_fetch_assoc($result);
 //die(var_dump($r));
 
-//Then get all recip events
-$event_sql = "SELECT * FROM Events WHERE RID = '$rid' ORDER BY EID DESC;";
+//Then get all recip events for the future
+$event_sql = "SELECT * FROM Events WHERE RID = '$rid' AND start_date > NOW() ORDER BY EID DESC;";
 $event_results = mysql_query($event_sql);
+
+//Then all the 
+$history_sql = "SELECT E.*, V.first_name, V.last_name FROM Events E INNER JOIN Volunteers V ON E.VID = V.VID WHERE E.RID = '$rid' ORDER BY E.start_date DESC;";
+$history_results = mysql_query($history_sql);
 
 //volunteer/search controller
 //set css and js for this page
@@ -605,7 +609,16 @@ $active = 'recip'
 							<th>Comment</th>
 						</tr>
 						<tbody>
-							<tr>
+							<?php while($e = mysql_fetch_assoc($history_results)):?>
+								<tr>
+									<td><?php echo date('m/d/Y', strtotime($e['start_date']));?></td>
+									<td><a href="/volunteers/view.php?vid=<?php echo $e['VID'];?>"><?php echo $e['first_name']." ".$e['last_name'];?></a></td>
+									<!-- Cryptic and Shitty-->
+									<td><?php echo ($e['event_type'] == 0) ? 'Transportation' : ($e['event_type'] == 1) ? 'Visit' : 'Meal';?></td>
+									<td><?php echo $e['destion'];?></td>
+								</tr>
+							<?php endwhile;?>
+							<!-- <tr>
 								<td>9/13/2013</td>
 								<td><a href="/recipients/view.php?rid=1">Mary Smith</a></td>
 								<td>Ride</td>
@@ -622,7 +635,7 @@ $active = 'recip'
 								<td><a href="/recipients/view.php?rid=1">Mary Smith</a></td>
 								<td>Ride</td>
 								<td>To the doctor</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</thead>
 				</table>

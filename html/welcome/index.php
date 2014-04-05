@@ -56,13 +56,14 @@ $active = 'dashboard';
 								$result2 = mysql_query($select_sql);
 								$cl = mysql_num_rows($result2);
 								$link=true;
+								die('here');
 								if($cl){ $class="pending"; $cmsg = "Awaiting Response";
 								}else{ $class="new"; $cmsg = "Find Volunteer";}
 							}
 						?>
 						<tr>
 							<td><?php echo $e['first_name']." ".$e['last_name']; ?></td>
-							<td><?php switch($e['event_type']){ case 0: echo "Transportation"; break; case 1: echo "Meals"; break; case 2: echo "Appointment"; break; }?></td>
+							<td><?php switch($e['event_type']){ case 0: echo "Transportation"; break; case 1: echo "Meals"; break; case 2: echo "Visit"; break; }?></td>
 							<td><?php echo date("m/d/Y H:i:s A", strtotime($e['start_date']." ".$e['arrive_time'])); ?></td>
 							<?php if($link){ ?>
 							<td><a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box <?php echo $class;?>"><?php echo $cmsg;?></a></td><?php }else{ ?>
@@ -98,6 +99,7 @@ $active = 'dashboard';
 						do{
 							if(isset($e['VID'])){ 
 								$event=$e['VID'];
+								$link = false;
 								$select_sql = "SELECT * FROM Volunteers WHERE VID=$event;";
 								$result2 = mysql_query($select_sql);
 								$v = mysql_fetch_assoc($result2);
@@ -106,6 +108,7 @@ $active = 'dashboard';
 								$event=$e['EID'];
 								$select_sql = "SELECT * FROM CallLog WHERE EID=$event;";
 								$result2 = mysql_query($select_sql);
+								$link = true;
 								$cl = mysql_num_rows($result2);
 								if($cl){ $class="pending"; $cmsg = "Awaiting Response";
 								}else{ $class="new"; $cmsg = "Find Volunteer";}
@@ -115,7 +118,9 @@ $active = 'dashboard';
 							<td><?php echo $e['first_name']." ".$e['last_name']; ?></td>
 							<td><?php switch($e['event_type']){ case 0: echo "Transportation"; break; case 1: echo "Meals"; break; case 2: echo "Appointment"; break; }?></td>
 							<td><?php echo date("m/d/Y H:i:s A", strtotime($e['start_date']." ".$e['arrive_time'])); ?></td>
-							<td><a href="#" class="<?php echo $class;?>"><?php echo $cmsg; ?></a></td>
+							<?php if($link){ ?>
+							<td><a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box <?php echo $class;?>"><?php echo $cmsg;?></a></td><?php }else{ ?>
+							<td><a href="#" class="filled"><?php echo $v['first_name']." ".$v['last_name']; ?></a></td><?php }?>
 						</tr>
 						<?php }while($e = mysql_fetch_assoc($result));
 					}?>						
