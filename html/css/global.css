@@ -135,7 +135,7 @@ div#overlay{
 div.modal{
 	z-index: 1020;
 	border-radius: 0;
-	position: relative;
+	/*position: relative;*/
 }
 
 div.modal .modal-head{
