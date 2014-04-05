@@ -95,6 +95,10 @@ if(!$vid && $_POST){
 
 }
 
+//get all events for vol
+$event_sql = "SELECT E.*, R.first_name, R.last_name FROM Events E INNER JOIN Recipients R ON E.RID = R.RID WHERE E.VID = '$vid' ORDER BY E.start_date DESC;";
+$history_results = mysql_query($event_sql);
+
 //volunteer/search controller
 //set css and js for this page
 $stylesheet = '/css/vol_view.css';
@@ -313,10 +317,19 @@ $active = 'volunteer'
 							<th>Date</th>
 							<th>Recipient</th>
 							<th>Event Type</th>
-							<th>Comment</th>
+							<th>Location</th>
 						</tr>
 						<tbody>
-							<tr>
+							<?php while($e = mysql_fetch_assoc($history_results)):?>
+								<tr>
+									<td><?php echo date('m/d/Y', strtotime($e['start_date']));?></td>
+									<td><a href="/recipients/view.php?rid=<?php echo $e['RID'];?>"><?php echo $e['first_name']." ".$e['last_name'];?></a></td>
+									<!-- Cryptic and Shitty-->
+									<td><?php echo ($e['event_type'] == 0) ? 'Transportation' : ($e['event_type'] == 1) ? 'Visit' : 'Meal';?></td>
+									<td><?php echo $e['destion'];?></td>
+								</tr>
+							<?php endwhile;?>
+							<!-- <tr>
 								<td>9/13/2013</td>
 								<td><a href="/recipients/view.php?rip=1">Mary Smith</a></td>
 								<td>Ride</td>
@@ -333,7 +346,7 @@ $active = 'volunteer'
 								<td><a href="/recipients/view.php?rip=1">Mary Smith</a></td>
 								<td>Ride</td>
 								<td>To the doctor</td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</thead>
 				</table>
