@@ -40,7 +40,7 @@ function trigger_overlay(){
 			console.log(body_height);
 			var modal_top = top + 130;
 			overlay.css("height", body_height+"px");
-			$('div.modal').css('position', modal_top+"px");
+			$('div.modal').css('top', modal_top+"px");
 			overlay.show();
 			$('button.close').on('click', function(){
 				overlay.hide();
