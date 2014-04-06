@@ -5,8 +5,13 @@ if($_SESSION["logged_in"] != true){
 
 require "../../config/mysql_header.php";
 
-$date = strtotime("last sunday");
+if(date('l') == "Sunday"){
+	$date = strtotime(date("Y-m-d"));	
+}else{
+	$date = strtotime("last sunday");
+}
 $time = strtotime(date("Y-m-d"));
+
 //welcome controller
 //set css and js for this page
 $stylesheet = '/css/welcome.css';
@@ -83,7 +88,7 @@ $active = 'dashboard';
 			$result = mysql_query($select_sql);
 			$e = mysql_fetch_assoc($result);?>
 			<div class="table-wrapper">
-				<h4><?php echo date("m/d/Y", $date);?></h4>
+				<h4><?php if($date==$time){ echo "Today"; }else{ echo date("m/d/Y", $date); }?></h4>
 				<table class="dynamic-table">
 					<thead>
 						<tr>
