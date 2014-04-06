@@ -147,7 +147,11 @@ while($i = mysql_fetch_row($called_result)){
 				success: function(resp){
 					//change class on button or div
 					var button = $(".pop_box[data-for-id='"+eid+"']");
-					button.removeClass('new').addClass('pending').html("Awaiting Response");
+					if(button.hasClass('btn')){
+						button.removeClass('btn-danger').addClass('btn-warning').html("Awaiting Response");
+					}else{
+						button.removeClass('new').addClass('pending').html("Awaiting Response");
+					}
 				},
 				error:function(err){
 					console.log(err);
