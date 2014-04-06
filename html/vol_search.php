@@ -145,8 +145,9 @@ while($i = mysql_fetch_row($called_result)){
 						eid: eid},
 				url: "../log_call.php",
 				success: function(resp){
-					//alert(resp);
-					//go header
+					//change class on button or div
+					var button = $(".pop_box[data-for-id='"+eid+"']");
+					button.removeClass('new').addClass('pending').html("Awaiting Response");
 				},
 				error:function(err){
 					console.log(err);
