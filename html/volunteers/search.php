@@ -44,8 +44,28 @@ $active = 'volunteer'
 								<tr>
 									<td><a class="" href="/volunteers/view.php?vid=<?= $r['VID'];?>"><?= $r['first_name']." ".$r['last_name'];?></a></td>
 									<td><?= build_phone($r['home_phone']);?></td>
-									<td>Call Data</td>
-									<td>2/14/2014</td>
+									<?php 
+									$vid = $r['VID'];
+									$call_sql = "SELECT call_time FROM CallLog WHERE VID = '$vid' ORDER BY call_time DESC LIMIT 1";
+									$call_result = mysql_query($call_sql);
+									?>
+									<?php if(mysql_num_rows($call_result) > 0):?>
+										<?php $e = mysql_fetch_row($call_result);?>
+										<td><?php echo date('h:i a', strtotime($e[0]));?></td>
+									<?php else:?>
+										<td>None</td>
+									<?php endif;?>
+									<?php
+									$vid = $r['VID'];
+									$event_sql = "SELECT start_date FROM Events WHERE VID = '$vid' ORDER BY start_date DESC LIMIT 1";
+									$event_result = mysql_query($event_sql);
+									?>
+									<?php if(mysql_num_rows($event_result) > 0):?>
+										<?php $e = mysql_fetch_row($event_result);?>
+										<td><?php echo date('m/d/Y', strtotime($e[0]));?></td>
+									<?php else:?>
+										<td>None</td>
+									<?php endif;?>
 								</tr>
 							<?php endwhile;?>
 						</tbody>
