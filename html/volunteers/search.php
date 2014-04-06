@@ -62,10 +62,10 @@ $active = 'volunteer'
 					<tr>
 						<th>Name</th>
 						<th>Phone Number</th>
-						<th>Address</th>
+						<th>Email</th>
 						<th>Last Event</th>
 					</tr>
-					<tbody>
+					<tbody id="search-results">
 						<tr>
 							<td>Joe Frank</td>
 							<td>(407) 666-5555</td>

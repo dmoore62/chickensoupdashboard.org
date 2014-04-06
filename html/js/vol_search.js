@@ -35,7 +35,16 @@ function vol_search(){
 		var cur_val = $(this).val();
 		if(cur_val.length > 2){
 			//ajax to search controller
-			result_div.show();
+			$.ajax({
+				url: "../vols_search.php",
+				data: {term : cur_val},
+				method: "POST",
+				success: function(data){
+					$('tbody#search-results').html(data);
+					result_div.show();
+				}
+			});
+			//result_div.show();
 		}else{
 			result_div.hide();
 		}
