@@ -62,9 +62,9 @@ $active = 'dashboard';
 							}
 						?>
 						<tr>
-							<td><?php echo $e['first_name']." ".$e['last_name']; ?></td>
+							<td><a href="/recipients/view.php?rid=<?php echo $e['RID'];?>" title="View Profile"><?php echo $e['first_name']." ".$e['last_name']; ?></a></td>
 							<td><?php switch($e['event_type']){ case 0: echo "Transportation"; break; case 1: echo "Meals"; break; case 2: echo "Visit"; break; }?></td>
-							<td><?php echo date("m/d/Y H:i:s A", strtotime($e['start_date']." ".$e['arrive_time'])); ?></td>
+							<td><?php echo date("m/d/Y h:i A", strtotime($e['start_date']." ".$e['arrive_time'])); ?></td>
 							<?php if($link){ ?>
 							<td><a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box <?php echo $class;?>"><?php echo $cmsg;?></a></td><?php }else{ ?>
 							<td><a href="#" class="filled"><?php echo $v['first_name']." ".$v['last_name']; ?></a></td><?php }?>
@@ -115,9 +115,9 @@ $active = 'dashboard';
 							}
 						?>
 						<tr>
-							<td><?php echo $e['first_name']." ".$e['last_name']; ?></td>
+							<td><a href="/recipients/view.php?rid=<?php echo $e['RID'];?>" title="View Profile"><?php echo $e['first_name']." ".$e['last_name']; ?></a></td>
 							<td><?php switch($e['event_type']){ case 0: echo "Transportation"; break; case 1: echo "Meals"; break; case 2: echo "Appointment"; break; }?></td>
-							<td><?php echo date("m/d/Y H:i:s A", strtotime($e['start_date']." ".$e['arrive_time'])); ?></td>
+							<td><?php echo date("m/d/Y h:i A", strtotime($e['start_date']." ".$e['arrive_time'])); ?></td>
 							<?php if($link){ ?>
 							<td><a href="#" data-form="vol_search"  data-for="eid" data-for-id="<?= $e['EID'];?>" class="pop_box <?php echo $class;?>"><?php echo $cmsg;?></a></td><?php }else{ ?>
 							<td><a href="#" class="filled"><?php echo $v['first_name']." ".$v['last_name']; ?></a></td><?php }?>
