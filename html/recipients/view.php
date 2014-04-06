@@ -320,7 +320,7 @@ $active = 'recip'
 					    			<label class="control-label" for="time">Pick Up Time</label>
 					    			<div class="controls">
 					    				 <div class="input-append bootstrap-timepicker">
-											<input id="time" name="time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['arrive_time']));?>">
+											<input id="time" name="time" type="text" class="timepick" value="<?php echo date('h:i a', strtotime($e['arrive_time']));?>">
 											<span class="add-on"><i class="icon-time"></i></span>
 										</div>
 					    			</div>
@@ -329,7 +329,7 @@ $active = 'recip'
 					    			<label class="control-label" for="appt-time">Appt. Time</label>
 					    			<div class="controls">
 					    				 <div class="input-append bootstrap-timepicker">
-											<input id="appt-time" name="appt-time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['appt_time']));?>">
+											<input id="appt-time" name="appt-time" type="text" class="timepick" value="<?php echo date('h:i a', strtotime($e['appt_time']));?>">
 											<span class="add-on"><i class="icon-time"></i></span>
 										</div>
 					    			</div>
@@ -423,7 +423,7 @@ $active = 'recip'
 						    			<label class="control-label" for="time">Start Time</label>
 						    			<div class="controls">
 						    				 <div class="input-append bootstrap-timepicker">
-												<input id="time" name="time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['arrive_time']));?>">
+												<input id="time" name="time" type="text" class="timepick" value="<?php echo date('h:i a', strtotime($e['arrive_time']));?>">
 												<span class="add-on"><i class="icon-time"></i></span>
 											</div>
 						    			</div>
@@ -432,7 +432,7 @@ $active = 'recip'
 						    			<label class="control-label" for="end-time">End Time</label>
 						    			<div class="controls">
 						    				 <div class="input-append bootstrap-timepicker">
-												<input id="end-time" name="end-time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['end_time']));?>">
+												<input id="end-time" name="end-time" type="text" class="timepick" value="<?php echo date('h:i a', strtotime($e['end_time']));?>">
 												<span class="add-on"><i class="icon-time"></i></span>
 											</div>
 						    			</div>
@@ -527,7 +527,7 @@ $active = 'recip'
 						    			<label class="control-label" for="time">Time</label>
 						    			<div class="controls">
 						    				 <div class="input-append bootstrap-timepicker">
-												<input id="time" name="time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['arrive_time']));?>">
+												<input id="time" name="time" type="text" class="timepick" value="<?php echo date('h:i a', strtotime($e['arrive_time']));?>">
 												<span class="add-on"><i class="icon-time"></i></span>
 											</div>
 						    			</div>
@@ -558,7 +558,7 @@ $active = 'recip'
 						    			<label class="control-label" for="deliver-time">Deliver Time</label>
 						    			<div class="controls">
 						    				 <div class="input-append bootstrap-timepicker">
-												<input id="deliver-time" name="deliver-time" type="text" class="timepick" value="<?php echo date('H:i a', strtotime($e['appt_time']));?>">
+												<input id="deliver-time" name="deliver-time" type="text" class="timepick" value="<?php echo date('h:i a', strtotime($e['appt_time']));?>">
 												<span class="add-on"><i class="icon-time"></i></span>
 											</div>
 						    			</div>
