@@ -261,6 +261,7 @@ $active = 'recip'
 		<div class="recip-view <?php echo ($show_events) ? "" : "hide";?>" id="events">
 			<div class="tab-content-wrapper">
 				<h4>Events</h4>
+				<?php if(mysql_num_rows($event_result) > 0):?>
 					<?php while($e = mysql_fetch_assoc($event_results)): ?>
 						<?php if($e['event_type'] == '0'):?>
 							<form name="vol_avail" action="recip_post.php" method="POST" class="form-horizontal">
@@ -594,6 +595,9 @@ $active = 'recip'
 						<?php endif;?>
 						<?php //var_dump($e);?>
 					<?php endwhile; ?>
+				<?php else:?>
+					<p><h4>- No Future Events -<a href="#" data-form="event_form"  data-for="rid" data-for-id="<?= $rid?>" class="pop_box btn btn-success">Create Event</a></h4></p>
+				<?php endif;?>
 				</form>
 			</div>
 		</div>

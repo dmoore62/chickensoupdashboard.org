@@ -14,6 +14,16 @@ $search_results = mysql_query($search_sql);
 									<td><a href="/recipients/view.php?rid=<?= $r['RID'];?>"><?= $r['first_name']." ".$r['last_name'];?></a></td>
 									<td><?= build_phone($r['home_phone']);?></td>
 									<td><?= $r['address']." ".$r['city']." ".$r['ZIP'];?></td>
-									<td>2/14/2014</td>
+									<?php
+									$rid = $r['RID'];
+									$event_sql = "SELECT start_date FROM Events WHERE RID = '$rid' ORDER BY start_date DESC LIMIT 1";
+									$event_result = mysql_query($event_sql);
+									?>
+									<?php if(mysql_num_rows($event_result) > 0):?>
+										<?php $e = mysql_fetch_row($event_result);?>
+										<td><?php echo date('m/d/Y', strtotime($e[0]));?></td>
+									<?php else:?>
+										<td>None</td>
+									<?php endif;?>
 								</tr>
 <?php endwhile;?>
