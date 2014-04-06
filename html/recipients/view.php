@@ -112,6 +112,16 @@ if(!$rid){
 
 		//create event
 		mysql_query($insert_sql) or die(mysql_error());
+		//if recurring, create next weeks event
+		if($insert_data['recurring'] == 1){
+			$insert_data['start_date'] = date("Y-m-d H:i:s", strtotime("+ 1 week", strtotime($insert_data['start_date'])));
+			$columns = implode(", ", array_keys($insert_data));
+			$values = "'".implode("', '", $insert_data)."'";
+			$insert_sql = "INSERT into Events ($columns) VALUES ($values);";
+
+			//create event
+			mysql_query($insert_sql) or die(mysql_error());
+			}
 	}
 }
 
