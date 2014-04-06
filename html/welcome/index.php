@@ -35,10 +35,10 @@ $active = 'dashboard';
 				<table class="dynamic-table">
 					<thead>
 						<tr>
-							<th>Recipient</th>
-							<th>Event</th>
-							<th>Date/Time</th>
-							<th>Volunteer</th>
+							<th width="185px">Recipient</th>
+							<th width="125px">Event</th>
+							<th width="205px">Date/Time</th>
+							<th width="">Volunteer</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -87,10 +87,10 @@ $active = 'dashboard';
 				<table class="dynamic-table">
 					<thead>
 						<tr>
-							<th>Recipient</th>
-							<th>Event</th>
-							<th>Date/Time</th>
-							<th>Volunteer</th>
+							<th width="185px">Recipient</th>
+							<th width="125px">Event</th>
+							<th width="205px">Date/Time</th>
+							<th width="">Volunteer</th>
 						</tr>
 					</thead>
 					<tbody>
