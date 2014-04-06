@@ -56,7 +56,6 @@ $active = 'dashboard';
 								$result2 = mysql_query($select_sql);
 								$cl = mysql_num_rows($result2);
 								$link=true;
-								die('here');
 								if($cl){ $class="pending"; $cmsg = "Awaiting Response";
 								}else{ $class="new"; $cmsg = "Find Volunteer";}
 							}
