@@ -188,7 +188,7 @@ $active = 'recip'
 					        <div class="control-group">  
 					            <label class="control-label" for="postal">Zip</label>  
 					            <div class="controls">  
-					              <input type="text" class="input-large" name="postal" id="postal" value="<?= $r['ZIP'];?>">  
+					              <input type="text" class="input-large" name="postal" id="postal" value="<?php echo ($r['ZIP'] == 0) ? '' : $r['ZIP'];?>">  
 					            </div>  
 					        </div> 
 							<div class="control-group">  
@@ -239,13 +239,13 @@ $active = 'recip'
 					        <div class="control-group">  
 					            <label class="control-label" for="notes">Directions</label>  
 					            <div class="controls">  
-					              <textarea rows="2" class="input-large" name="directions" id="directions"><?= $r['limitations'];?></textarea>
+					              <textarea rows="2" class="input-large" name="directions" id="directions"><?= $r['directions'];?></textarea>
 					            </div>  
 					        </div>
 					        <div class="control-group">  
 					            <label class="control-label" for="notes">Limitations</label>  
 					            <div class="controls">  
-					              <textarea rows="2" class="input-large" name="limitations" id="limitations"><?= $r['directions'];?></textarea>
+					              <textarea rows="2" class="input-large" name="limitations" id="limitations"><?= $r['limitations'];?></textarea>
 					            </div>  
 					        </div>
 					        <input type="hidden" name="rid" value="<?= $r['RID'];?>">
