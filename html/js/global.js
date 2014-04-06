@@ -22,7 +22,6 @@ function get_search_results(){
 
 function trigger_overlay(){
 	var overlay = $('div#overlay');
-	var body_height = $(document).height() + 200;
 	$('a.pop_box').on('click', function(e){
 		e.preventDefault();
 		var cur = $(this);
@@ -32,10 +31,16 @@ function trigger_overlay(){
 			var form_key = cur.attr("data-for");
 			model_form += "?"+form_key+"="+form_data;
 		}
-		console.log(model_form);
+		//console.log(model_form);
 		$.get(model_form, function(msg){
 			overlay.html(msg);
+			//get top of screen and position modal
+			var top = $(window).scrollTop();
+			var body_height = $(document).height() + 200;
+			console.log(body_height);
+			var modal_top = top + 130;
 			overlay.css("height", body_height+"px");
+			$('div.modal').css('position', modal_top+"px");
 			overlay.show();
 			$('button.close').on('click', function(){
 				overlay.hide();
