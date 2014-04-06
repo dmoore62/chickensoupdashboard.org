@@ -1,0 +1,20 @@
+Chicken Soup Dashboard Setup:
+
+This was a COP 4710 Project at the University of Central Florida.
+
+Authors:
+Daniel Moore
+Chris Mayhew
+Thomas Manning
+Matt McGivney
+
+Overview:
+Chicken Soup Dashboard is a CRM system that allows for events to be created for recipients, then quick lookup for available volunteers to contact regarding that event.  The system tracks events and volunteer contacts.
+
+Setup:
+1) In this folder, use the dbsetup.sql file to create the mysql schema. 
+
+2) Then copy the contents of mysql_header.php into a folder called "config" which is outside the html folder.
+
+3) Modify mysql_header.php with your own database credentials.
+
