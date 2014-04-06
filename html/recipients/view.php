@@ -122,7 +122,7 @@ $r = mysql_fetch_assoc($result);
 //die(var_dump($r));
 
 //Then get all recip events for the future
-$event_sql = "SELECT * FROM Events WHERE RID = '$rid' AND start_date > NOW() ORDER BY EID DESC;";
+$event_sql = "SELECT * FROM Events WHERE RID = '$rid' AND start_date > NOW() ORDER BY start_date;";
 $event_results = mysql_query($event_sql);
 
 //Then all the 

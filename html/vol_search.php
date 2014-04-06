@@ -1,6 +1,7 @@
 <?php
 
 require "../config/mysql_header.php";
+require "helpers/sanitize.php";
 
 $eid = $_GET['eid'];
 
@@ -8,13 +9,45 @@ $select_sql = "SELECT * FROM Events E, Recipients R WHERE E.EID = '$eid' AND E.R
 $results = mysql_query($select_sql);
 $e = mysql_fetch_assoc($results);
 $wday = date("w", strtotime($e['start_date']));
-if(date("a", strtotime($e['start_date'].$e['arrive_time']))=="am"){ $am = 1; $pm = 0; }else{ $am = 0; $pm = 1; }
-$suv = $e['SUV'];
-if($e['child']){
-	$select_sql = "SELECT V.last_name, V.first_name, V.VID FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND B.weekday = '$wday' AND B.AM = '$am' AND B.PM = '$pm' AND V.SUV = '$suv' ORDER BY V.last_name ASC";
+$time_of_day = date("a", strtotime($e['start_date'].$e['arrive_time']));
+//start with empty array to push restraints onto
+$restraints = array();
+//dynamically build query
+//first event type
+if($e['event_type'] == 0){
+	array_push($restraints, "V.trans = 1");
+}elseif($e['event_type'] == 1){
+	array_push($restraints, "V.visit = 1");
 }else{
-	$select_sql = "SELECT V.last_name, V.first_name, V.VID FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND B.weekday = '$wday' AND B.AM = '$am' AND B.PM = '$pm' AND (V.child1 = 0 AND V.child2 = 0 AND V.child3 = 0) AND V.SUV = '$suv' ORDER BY V.last_name ASC";
+	array_push($restraints, "V.meal = 1");
 }
+
+//then availability
+array_push($restraints, "B.weekday = {$wday}");
+if($time_of_day == "am"){
+	array_push($restraints, "B.AM = 1");
+}else{
+	array_push($restraints, "B.PM = 1");
+}
+
+if(!$e['SUV']){
+	array_push($restraints, "V.SUV = 0");
+}
+
+if(!$e['child']){
+	array_push($restraints, "(V.child1 = 0 AND V.child2 = 0 AND V.child3 = 0)");
+}
+
+//glue them together
+$restraint_str = implode(" AND ", $restraints);
+$select_sql = "SELECT V.last_name, V.first_name, V.VID, V.email, V.home_phone, V.cell_phone FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND ".$restraint_str;
+// if(date("a", strtotime($e['start_date'].$e['arrive_time']))=="am"){ $am = 1; $pm = 0; }else{ $am = 0; $pm = 1; }
+// $suv = $e['SUV'];
+// if($e['child']){
+// 	$select_sql = "SELECT V.last_name, V.first_name, V.VID FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND B.weekday = '$wday' AND B.AM = '$am' AND B.PM = '$pm' AND V.SUV = '$suv' ORDER BY V.last_name ASC";
+// }else{
+// 	$select_sql = "SELECT V.last_name, V.first_name, V.VID FROM Volunteers V, VAvailable B WHERE V.VID = B.VID AND B.weekday = '$wday' AND B.AM = '$am' AND B.PM = '$pm' AND (V.child1 = 0 AND V.child2 = 0 AND V.child3 = 0) AND V.SUV = '$suv' ORDER BY V.last_name ASC";
+// }
 $result = mysql_query($select_sql);
 
 
@@ -34,14 +67,19 @@ while($i = mysql_fetch_row($called_result)){
     </div>
 	<div id="modal-body">
 		<div class="content-wrapper">
+		<!-- <p><?php var_dump($e);?></p>-->
+		<!-- <p><?php var_dump($select_sql);?></p> --> 
 		<!-- <p>You are currently viewing available volunteers on <?php echo $e['start_date']." at ".date("h:i:s A", strtotime($e['arrive_time'])); ?>.</p> -->
 		<div class="table-wrapper">
 			<table class="dynamic-styled">
 				<thead>
 					<tr>
 						<th>Volunteer Name</th>
+						<th>Email</th>
+						<th>Phone</th>
 						<th>Last Event</th>
-						<th>Called?</th>
+						<th>Last Contacted</th>
+						<th>Contacted?</th>
 						<th>Add to Event</th>
 						
 					</tr>
@@ -49,13 +87,33 @@ while($i = mysql_fetch_row($called_result)){
 				<tbody>
 					<?php while($v= mysql_fetch_assoc($result)): 
 						$vid = $v['VID'];
-						$recent_sql = "SELECT start_date FROM Events WHERE VID = '$vid' ORDER BY start_date DESC";
+						$recent_sql = "SELECT start_date FROM Events WHERE VID = '$vid' ORDER BY start_date DESC LIMIT 1";
 						$recent_result = mysql_query($recent_sql);
-						$re = mysql_fetch_row($recent_result);
+						if(mysql_num_rows($recent_result) > 0){
+							$re = mysql_fetch_row($recent_result);
+							$event_time = date('m/d/Y', strtotime($re[0]));
+						}else{
+							$event_time = "N/A";
+						}
+
+						//get last contact
+						$call_sql = "SELECT call_time FROM CallLog WHERE VID = '$vid' ORDER BY call_time DESC LIMIT 1";
+						$call_result = mysql_query($call_sql);
+						if(mysql_num_rows($call_result) > 0){
+							$cr = mysql_fetch_row($call_result);
+							$call_time = date('m/d/Y', strtotime($cr[0]));
+						}else{
+							$call_time = "N/A";
+						}
+
+						$contact_phone = ($v['home_phone']) ? build_phone($v['home_phone']) : build_phone($v['cell_phone']);
 					?>
 						<tr>
-							<td><?php echo $v['last_name'].", ".$v['first_name']; ?></td>
-							<td><?php echo $re[0];?></td>
+							<td><a href="/volunteers/view.php?vid=<?php echo $v['VID'];?>" title="View Profile"><?php echo $v['last_name'].", ".$v['first_name']; ?></a></td>
+							<td><a href="mailto:<?php echo $v['email'];?>" title="Send Email"><?php echo $v['email'];?></a></td>
+							<td><?php echo $contact_phone;?></td>
+							<td><?php echo $event_time;?></td>
+							<td><?php echo $call_time;?></td>
 							<td><input class="ajax_call" data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $eid;?>" type="checkbox" name="called" <?php echo (in_array($v['VID'], $called_vols)) ? "checked" : "";?>/></td>
 							<td><button data-vid="<?php echo $v['VID'];?>"  data-eid="<?php echo $eid;?>" type="button" class="ajax_add btn btn-primary" name="call">Add to Event</button></td>
 						</tr>
@@ -68,7 +126,9 @@ while($i = mysql_fetch_row($called_result)){
 	<div class="modal-footer"></div>
 </div>
 <script type="text/javascript">
-	$('table.dynamic-styled').dataTable();
+	$('table.dynamic-styled').dataTable({
+		"aaSorting" : [[4, 'desc']]
+	});
 
 	$('.ajax_call').on('click', function(e){
 		//e.preventDefault();

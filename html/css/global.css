@@ -135,7 +135,7 @@ div#overlay{
 div.modal{
 	z-index: 1020;
 	border-radius: 0;
-	/*position: relative;*/
+	position: relative;
 }
 
 div.modal .modal-head{
@@ -190,8 +190,8 @@ table thead tr{
 
 div#vol-modal.modal
 {
-	width: 700px;
-	margin-left: -350px;
+	width: 900px;
+	margin-left: -450px;
 }
 
 div#vol-modal .modal-footer
