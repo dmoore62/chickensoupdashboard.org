@@ -27,6 +27,7 @@
 								<li><a href="/recipients/search.php">Search</a></li>
 							</ul>
 						</li>
+						<li class="<?php echo ($active == 'report') ? 'active' : '';?>"><a href="/report">Report</a></li>
 						<!-- <li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <b class="caret"></b></a>
 							<ul class="dropdown-menu">
